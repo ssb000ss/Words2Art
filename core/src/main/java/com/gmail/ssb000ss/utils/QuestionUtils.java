@@ -14,11 +14,13 @@ public class QuestionUtils {
     private WordList wordList;
     private List<Long> idList;
     private List<Integer> positions;
+    private int size;
 
     public QuestionUtils(WordList wordList) {
         this.wordList = wordList;
         idList=wordList.getIdList();
         setpositions();
+        size=this.positions.size();
     }
 
     private void setpositions() {
@@ -27,12 +29,23 @@ public class QuestionUtils {
         }
     }
 
-    public static int []getrandom(int x){
+    public  int []getrandom(int x){
         int mas[]=new int[3];
         for (int i = 0; i <3 ; i++) {
-            int temp=Math.random();
+            while (true) {
+                int c = rand(size);
+                if (c != x) {
+                    mas[i] = c;
+                    break;
+                }
+            }
+
         }
-        return null;
+        return mas;
+    }
+
+    private static int rand(int size) {
+        return (int) (Math.random()*size);
     }
 
 }

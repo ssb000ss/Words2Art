@@ -20,7 +20,7 @@ public class QuestionManager {
     }
 
     private void setQuestions() {
-
+        questions
     }
 
     //todo остановился на том что генерирую вопросы надо получить список ид, функция генерация любых ответов, получить список ответов
