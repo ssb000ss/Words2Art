@@ -10,27 +10,18 @@ import java.util.List;
 
 
 public class QuestionUtils {
-
-
-    public QuestionUtils(WordList wordList) {
-        this.wordList = wordList;
-        idList=wordList.getIdList();
-        setpositions();
-        size=this.positions.size();
-    }
-
-
-    public static int []getrandom(int x,int size){
+    
+//метод получения рандомных чисел
+    public static int []getRandom(int position,int size){
         int mas[]=new int[3];
         for (int i = 0; i <3 ; i++) {
             while (true) {
                 int c = rand(size);
-                if (c != x) {
+                if (c != position) {
                     mas[i] = c;
                     break;
                 }
             }
-
         }
         return mas;
     }

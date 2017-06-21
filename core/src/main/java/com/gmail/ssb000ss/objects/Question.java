@@ -10,8 +10,9 @@ public class Question {
 
     private long id;
     private long correctWordId;
-    private long[] incorrectWords=new long[3];
-    private Answer answer=null;
+    private long[] incorrectWords = new long[3];
+    private Answer answer = null;
+
 
     public Question(long id, long correctWord, long[] incorrectWords) {
         this.id = id;
@@ -41,12 +42,11 @@ public class Question {
     }
 
     public Answer getAnswer(long w) {
-        if(answer!=null){
-            return  answer;
-        }
-        else {
-            if(w==correctWordId) return answer=new Answer(correctWordId,true);
-            else return answer=new Answer(correctWordId,true);
+        if (answer != null) {
+            return answer;
+        } else {
+            if (w == correctWordId) return answer = new Answer(correctWordId, true);
+            else return answer = new Answer(correctWordId, true);
         }
     }
 }
