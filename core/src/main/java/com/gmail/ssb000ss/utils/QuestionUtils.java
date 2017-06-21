@@ -11,10 +11,6 @@ import java.util.List;
 
 public class QuestionUtils {
 
-    private WordList wordList;
-    private List<Long> idList;
-    private List<Integer> positions;
-    private int size;
 
     public QuestionUtils(WordList wordList) {
         this.wordList = wordList;
@@ -23,13 +19,8 @@ public class QuestionUtils {
         size=this.positions.size();
     }
 
-    private void setpositions() {
-        for (int i = 0; i <idList.size(); i++) {
-            positions.add(i);
-        }
-    }
 
-    public  int []getrandom(int x){
+    public static int []getrandom(int x,int size){
         int mas[]=new int[3];
         for (int i = 0; i <3 ; i++) {
             while (true) {
