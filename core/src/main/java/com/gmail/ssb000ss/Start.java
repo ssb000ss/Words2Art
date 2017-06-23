@@ -4,10 +4,8 @@ import com.gmail.ssb000ss.dao.WordList;
 import com.gmail.ssb000ss.objects.Question;
 import com.gmail.ssb000ss.objects.Word;
 import com.gmail.ssb000ss.utils.QuestionManager;
-import com.gmail.ssb000ss.utils.QuestionUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class Start {

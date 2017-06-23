@@ -21,6 +21,10 @@ public class Question {
     private Set<Word> items = new HashSet<>();
     private Answer answer = null;
 
+    public Question(Word correctWord, List<Word> listWord) {
+        this.correctWord = correctWord;
+        setItems(listWord);
+    }
 
     //на вход подаём ид правельного ответа, и для упрощения список ответов
     public Question(long id, Word correctWord, List<Word> listWord) {
