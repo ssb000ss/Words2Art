@@ -2,9 +2,6 @@ package com.gmail.ssb000ss.dao;
 
 import com.gmail.ssb000ss.exceptions.WordException;
 import com.gmail.ssb000ss.objects.Word;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +12,12 @@ import java.util.List;
 public class WordList {
     //список всех импортированных слов
     private List<Word> wordList = new ArrayList<>();
-    private List<Long> idList;
+    private List<Long> idList=new ArrayList<>();
 
     public WordList(List<Word> wordList) {
         this.wordList = wordList;
         setIdList();
     }
-
 
     private void setIdList() {
         for (Word w : wordList) {

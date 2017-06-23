@@ -13,30 +13,39 @@ import java.util.Locale;
  */
 
 public class QuestionManager {
+
     private WordList wordList;
     private List<Question> questions;
     private List<Long> idList;
 
+    //на вход конструктора подается лишь список словарей wordlist
     public QuestionManager(WordList wordList) {
         this.wordList = wordList;
+        //создание объекта пока только нового
         questions = new ArrayList<>();
+        //получение списка существующих id
         idList = wordList.getIdList();
     }
 
+    //метод получение списка вопросников
     public List<Question> getQuestions() {
         int size = idList.size();
         for (Long s : idList) {
             int position = idList.indexOf(s);
-
+            //проходим полностью по списку Ид, генерируем список вопросов, добавляем s correct answer, и лист
             questions.add(new Question(s, getIdByPosition(QuestionUtils.getRandom(position, size))));
         }
         return questions;
     }
-    //todo остановился на том что генерирую вопросы надо получить список ид, функция генерация любых ответов, получить список ответов
-    private long[] getIdByPosition(List<Integer> list) {
-        return new long[] {idList.get(list.get(0)),idList.get(list.get(0)),idList.get(list.get(0))};
-        }
+
+    private List<Long> getIdByPosition(List<Integer> list) {
+        List<Long> l=new ArrayList<>();
+        l.add(idList.get(list.get(0)));
+        l.add(idList.get(list.get(1)));
+        l.add(idList.get(list.get(2)));
+        return l;
     }
+}
 
 
 
