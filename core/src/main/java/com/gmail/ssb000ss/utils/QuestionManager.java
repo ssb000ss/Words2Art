@@ -27,14 +27,14 @@ public class QuestionManager {
         int size = idList.size();
         for (Long s : idList) {
             int position = idList.indexOf(s);
-            int mas[] = QuestionUtils.getRandom(position, size);
-            questions.add(new Question(s, getIdByPosition(mas)));
+
+            questions.add(new Question(s, getIdByPosition(QuestionUtils.getRandom(position, size))));
         }
         return questions;
     }
     //todo остановился на том что генерирую вопросы надо получить список ид, функция генерация любых ответов, получить список ответов
-    private long[] getIdByPosition(int[] mas) {
-        return new long[] {idList.get(mas[0]),idList.get(mas[1]),idList.get(mas[2])};
+    private long[] getIdByPosition(List<Integer> list) {
+        return new long[] {idList.get(list.get(0)),idList.get(list.get(0)),idList.get(list.get(0))};
         }
     }
 
