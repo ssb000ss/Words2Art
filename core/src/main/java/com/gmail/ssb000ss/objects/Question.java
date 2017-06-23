@@ -16,7 +16,8 @@ public class Question {
     //объект вопрос не должен состоять из списка просто ид, а он должен состоять
     // из спиcка объектов слов и правильного ответа на слово
     private long idQuestion;
-    private Word correctWord;
+
+
     //как раз для универсальности не ограничиваем длину Set(можно добалять сколько хочешь вариантов)
     private Set<Word> items = new HashSet<>();
     private Answer answer = null;
@@ -46,11 +47,30 @@ public class Question {
             return answer;
         } else {
             if (w == correctWord.getId()) return answer = new Answer(correctWord.getId(), true);
-            else return answer = new Answer(correctWord.getId(), true);
+            else return answer = new Answer(correctWord.getId(), false);
         }
+    }
+
+    public Answer getAnswer(Word w){
+        return getAnswer(w.getId());
     }
 
     public void setItems(List<Word> list) {
         items.addAll(list);
+        items.add(correctWord);
     }
+
+    public long getIdQuestion() {
+        return idQuestion;
+    }
+    public Set<Word> getItems() {
+        return items;
+    }
+
+    public Word getCorrectWord() {
+
+        return correctWord;
+    }
+
+    private Word correctWord;
 }

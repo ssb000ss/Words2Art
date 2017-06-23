@@ -19,6 +19,7 @@ public class QuestionManager {
     private WordList wordList;
     private List<Question> questions;
     private List<Long> idList;
+    private long count=0;
 
     //на вход конструктора подается лишь список словарей wordlist
     public QuestionManager(WordList wordList) {
@@ -35,7 +36,7 @@ public class QuestionManager {
         for (Long s : idList) {
             int position = idList.indexOf(s);
             //проходим полностью по списку Ид, генерируем список вопросов
-            questions.add(new Question(
+            questions.add(new Question(++count,
                     wordList.getWordById(s),
                     getWordByPosition(getRandom(position,size)))
             );
