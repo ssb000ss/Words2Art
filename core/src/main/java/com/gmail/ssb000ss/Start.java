@@ -60,8 +60,6 @@ public class Start {
 
         //игра опросов в консоли,
         // для проверки работоспособности ядра без бд
-
-
         }
 
     private static List<Word> TestWordList() {
