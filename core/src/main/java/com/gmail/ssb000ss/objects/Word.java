@@ -12,6 +12,11 @@ public class Word {
     public Word() {
     }
 
+    public Word(long id, String word, String translation) {
+        this.id = id;
+        this.word = word;
+        this.translation = translation;
+    }
 
     public Word(String word) {
         this.word = word;
@@ -20,21 +25,6 @@ public class Word {
     public Word(String word, String translation) {
         this.word = word;
         this.translation = translation;
-    }
-
-    public Word(long id, String word, String translation) {
-        this.id = id;
-        this.word = word;
-        this.translation = translation;
-    }
-
-    @Override
-    public String toString() {
-        return "Word{" +
-                "id=" + id +
-                ", word='" + word + '\'' +
-                ", translation='" + translation + '\'' +
-                '}';
     }
 
     public long getId() {
@@ -79,4 +69,12 @@ public class Word {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Word{" +
+                "id=" + id +
+                ", word='" + word + '\'' +
+                ", translation='" + translation + '\'' +
+                '}';
+    }
 }

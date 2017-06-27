@@ -1,8 +1,5 @@
 package com.gmail.ssb000ss.objects;
 
-import com.gmail.ssb000ss.dao.WordList;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +13,7 @@ public class Question {
     //объект вопрос не должен состоять из списка просто ид, а он должен состоять
     // из спиcка объектов слов и правильного ответа на слово
     private long idQuestion;
-
+    private Word correctWord;
 
     //как раз для универсальности не ограничиваем длину Set(можно добалять сколько хочешь вариантов)
     private Set<Word> items = new HashSet<>();
@@ -42,6 +39,7 @@ public class Question {
         this.correctWord = correctWord;
     }
 
+    //метод для получения, ответа на вопрос, на вход даем id ответа и на выходе получаем объект ответ
     public Answer getAnswer(long w) {
         if (answer != null) {
             return answer;
@@ -50,19 +48,21 @@ public class Question {
             else return answer = new Answer(correctWord.getId(), false);
         }
     }
-
+    //метод для получения, ответа на вопрос, на вход даем слово ответа и на выходе получаем объект ответ
     public Answer getAnswer(Word w){
         return getAnswer(w.getId());
     }
 
-    public void setItems(List<Word> list) {
-        items.addAll(list);
+    public void setItems(List<Word> otherWords) {
         items.add(correctWord);
+        items.addAll(otherWords);
+
     }
 
     public long getIdQuestion() {
         return idQuestion;
     }
+
     public Set<Word> getItems() {
         return items;
     }
@@ -72,5 +72,5 @@ public class Question {
         return correctWord;
     }
 
-    private Word correctWord;
+
 }

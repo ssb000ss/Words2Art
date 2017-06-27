@@ -1,14 +1,12 @@
 package com.gmail.ssb000ss.utils;
 
-import com.gmail.ssb000ss.dao.WordList;
+import com.gmail.ssb000ss.objects.WordList;
 import com.gmail.ssb000ss.exceptions.WordException;
 import com.gmail.ssb000ss.objects.Question;
 import com.gmail.ssb000ss.objects.Word;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by ssb000ss on 21.06.2017.
@@ -19,29 +17,36 @@ public class QuestionManager {
     private WordList wordList;
     private List<Question> questions;
     private List<Long> idList;
-    private long count=0;
+    private long count = 0;
 
     //на вход конструктора подается лишь список словарей wordlist
-    public QuestionManager(WordList wordList) {
+    public QuestionManager(WordList wordList) throws WordException {
         this.wordList = wordList;
         //создание объекта пока только нового
-        questions = new ArrayList<>();
+        this.questions = setQuestions();
         //получение списка существующих id
         idList = wordList.getIdList();
     }
 
     //метод получение списка вопросников
-    public List<Question> getQuestions() throws WordException {
-        int size = idList.size();
-        for (Long s : idList) {
-            int position = idList.indexOf(s);
-            //проходим полностью по списку Ид, генерируем список вопросов
-            questions.add(new Question(++count,
-                    wordList.getWordById(s),
-                    getWordByPosition(getRandom(position,size)))
-            );
-        }
+    public List<Question> getQuestions() {
         return questions;
+    }
+
+    public List<Question> setQuestions() throws WordException {
+        List<Question> questions = new ArrayList<>();
+        if (!idList.isEmpty()) {
+            int size = idList.size();
+            for (Long s : idList) {
+                int position = idList.indexOf(s);
+                questions.add(new Question(++count,
+                        wordList.getWordById(s),
+                        getWordByPosition(getRandom(position, size)))
+                );
+            }
+            return questions;
+        } else return null;
+
     }
 
     //метод для получения рандомных (неправельных ответов)слов из списка

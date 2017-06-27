@@ -1,6 +1,6 @@
 package com.gmail.ssb000ss;
 
-import com.gmail.ssb000ss.dao.WordList;
+import com.gmail.ssb000ss.objects.WordList;
 import com.gmail.ssb000ss.exceptions.WordException;
 import com.gmail.ssb000ss.objects.Question;
 import com.gmail.ssb000ss.objects.Word;
@@ -11,57 +11,51 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Start {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WordException {
         WordList wordList=new WordList(TestWordList());
         QuestionManager questionManager=new QuestionManager(wordList);
-        try {
-            List<Question>questions=questionManager.getQuestions();
+        List<Question>questions=questionManager.getQuestions();
 
-            while (true){
-                Scanner scanner=new Scanner(System.in);
-                for (Question s:questions) {
-                    System.out.println("Question number :"+s.getIdQuestion());
-                    System.out.println("How to translate this word? : "+s.getCorrectWord().getWord()+"?");
-                    System.out.println("__________________________________________________________");
-                    int i=1;
-                    List<Word> tempList=new ArrayList<>();
-                    for (Word w :s.getItems()) {
-                        tempList.add(w);
-                        System.out.println(i+") "+w.getTranslation());
-                        i++;
-                    }
-                    System.out.println("Please,enter the correct answer:");
-                    int a=scanner.nextInt();
-                    Word answer=new Word();
-                    switch (a){
-                        case 1:
-                            answer=tempList.get(0);
-                            break;
-                        case 2:
-                            answer=tempList.get(1);
-                            break;
-                        case 3:
-                            answer=tempList.get(2);
-                            break;
-                        case 4:
-                            answer=tempList.get(3);
-                            break;
-                        default:
-                            System.out.println("Error");
-                    }
-                    if(s.getAnswer(answer).isCorrect()){
-                        System.out.println("Correctly!!!\n\n\n");
-                    }else {
-                        System.out.println("Wrong!!!\n\n\n");
-                    }
+        while (true){
+            Scanner scanner=new Scanner(System.in);
+            for (Question s:questions) {
+                System.out.println("Question number :"+s.getIdQuestion());
+                System.out.println("How to translate this word? : "+s.getCorrectWord().getWord()+"?");
+                System.out.println("__________________________________________________________");
+                int i=1;
+                List<Word> tempList=new ArrayList<>();
+                for (Word w :s.getItems()) {
+                    tempList.add(w);
+                    System.out.println(i+") "+w.getTranslation());
+                    i++;
                 }
-                break;
+                System.out.println("Please,enter the correct answer:");
+                int a=scanner.nextInt();
+                Word answer=new Word();
+                switch (a){
+                    case 1:
+                        answer=tempList.get(0);
+                        break;
+                    case 2:
+                        answer=tempList.get(1);
+                        break;
+                    case 3:
+                        answer=tempList.get(2);
+                        break;
+                    case 4:
+                        answer=tempList.get(3);
+                        break;
+                    default:
+                        System.out.println("Error");
+                }
+                if(s.getAnswer(answer).isCorrect()){
+                    System.out.println("Correctly!!!\n\n\n");
+                }else {
+                    System.out.println("Wrong!!!\n\n\n");
+                }
             }
-        } catch (WordException e) {
-            e.printStackTrace();
+            break;
         }
-
-
 
 
         //игра опросов в консоли,
