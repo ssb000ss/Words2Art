@@ -77,6 +77,10 @@ public class WordList {
         return wordList.remove(word) || idList.remove(word.getId());
     }
 
+    public boolean deleteWord(long id) throws WordException {
+        return wordList.remove(this.getWordById(id)) || idList.remove(id);
+    }
+
     public boolean updateWord(long id, String newWord, String newTranslation) throws WordException {
         if (hasWordById(id)) {
             wordList.remove(getWordById(id));

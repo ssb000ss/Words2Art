@@ -29,11 +29,11 @@ public class DBWords {
     }
 
     //добавление слова в бд
-    public boolean addWord(Word word) {
+    public long addWord(String word,String translation) {
         ContentValues cv = new ContentValues();
-        cv.put(DBWordsContract.DBWordEntry.COLUMN_WORD, word.getWord());
-        cv.put(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION, word.getTranslation());
-        return mDb.insert(DBWordsContract.DBWordEntry.TABLE_NAME, null, cv) > 0;
+        cv.put(DBWordsContract.DBWordEntry.COLUMN_WORD, word);
+        cv.put(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION, translation);
+        return mDb.insert(DBWordsContract.DBWordEntry.TABLE_NAME, null, cv);
     }
 
     public boolean updateWord(long id, String newWord, String newTranslation) {
