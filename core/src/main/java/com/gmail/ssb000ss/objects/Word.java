@@ -3,6 +3,7 @@ package com.gmail.ssb000ss.objects;
 /**
  * Created by ssb000ss on 21.06.2017.
  */
+//todo у каждого слово должна быть статистика, после 50 поторений слово удалить.
 
 public class Word {
     private long id;

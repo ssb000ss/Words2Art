@@ -24,17 +24,12 @@ public class Question {
     }
 
     public Question(Word correctWord, List<Word> listWord) {
+        idQuestion=correctWord.getId();
         this.correctWord = correctWord;
         setItems(listWord);
 
     }
 
-    //на вход подаём ид правельного ответа, и для упрощения список ответов
-    public Question(long id, Word correctWord, List<Word> listWord) {
-        this.idQuestion = id;
-        this.correctWord = correctWord;
-        setItems(listWord);
-    }
 
     public long getCorrectWordId() {
         return correctWord.getId();
