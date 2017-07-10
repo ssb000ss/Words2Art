@@ -40,7 +40,7 @@ public class QuestionManager {
             int size = idList.size();
             for (Long s : idList) {
                 int position = idList.indexOf(s);
-                questions.add(new Question(++count,
+                questions.add(new Question(
                         wordList.getWordById(s),
                         getWordByPosition(getRandom(position, size)))
                 );

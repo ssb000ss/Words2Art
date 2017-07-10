@@ -29,7 +29,7 @@ public class DBWords {
     }
 
     //добавление слова в бд
-    public long addWord(String word,String translation) {
+    public long addWord(String word, String translation) {
         ContentValues cv = new ContentValues();
         cv.put(DBWordsContract.DBWordEntry.COLUMN_WORD, word);
         cv.put(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION, translation);
@@ -51,7 +51,8 @@ public class DBWords {
         cursor.moveToFirst();
         String word = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_WORD));
         String translation = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION));
-        return new Word(word, translation);
+        int statistic = cursor.getInt(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLOMN_STATISTIC));
+        return new Word(id, word, translation, statistic);
     }
 
     private void swapCursor() {
@@ -94,11 +95,23 @@ public class DBWords {
         long id = cursor.getLong(cursor.getColumnIndex(DBWordsContract.DBWordEntry._ID));
         String word = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_WORD));
         String translate = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION));
+        int statistic = cursor.getInt(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLOMN_STATISTIC));
         //добовляем его в лист
-        list.add(new Word(id, word, translate));
+        list.add(new Word(id, word, translate, statistic));
         //меняем расположение курсора на следующее значение
         cursor.moveToNext();
     }
 
-
+    private boolean upCount(long id) {
+        if (!(getWordById(id) == null)) {
+            ContentValues cv= new ContentValues();
+            int old = getWordById(id).getStatistic();
+            if (old >= DBWordsContract.DBWordEntry.MEMORIZATION_LEVEL) {
+                deleteWord(id);
+            } else {
+                cv.put(DBWordsContract.DBWordEntry.COLOMN_STATISTIC, ++old);
+            }
+            return mDb.update(DBWordsContract.DBWordEntry.TABLE_NAME, cv, DBWordsContract.DBWordEntry._ID + "=" + id, null) > 0;
+        } else return false;
+        }
 }

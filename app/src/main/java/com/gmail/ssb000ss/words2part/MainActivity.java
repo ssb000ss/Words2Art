@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //Запустим один раз
 
         words=new DAOwordsImpls(this);
-        //TestUtils.insertTestWord(words.getDatabase());
+        TestUtils.insertTestWord(words.getDatabase());
         adapter=new WordAdapter(this,words.getList().getAll());
         recyclerView=(RecyclerView ) findViewById(R.id.rv_words);
 

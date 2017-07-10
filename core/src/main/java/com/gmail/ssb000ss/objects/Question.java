@@ -31,10 +31,6 @@ public class Question {
     }
 
 
-    public long getCorrectWordId() {
-        return correctWord.getId();
-    }
-
     public void setCorrectWord(Word correctWord) {
         this.correctWord = correctWord;
     }

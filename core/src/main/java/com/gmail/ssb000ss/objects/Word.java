@@ -9,6 +9,7 @@ public class Word {
     private long id;
     private String word;
     private String translation;
+    private int count;
 
     public Word() {
     }
@@ -26,6 +27,13 @@ public class Word {
     public Word(String word, String translation) {
         this.word = word;
         this.translation = translation;
+    }
+
+    public Word(long id, String word, String translation, int count) {
+        this.id = id;
+        this.word = word;
+        this.translation = translation;
+        this.count = count;
     }
 
     public long getId() {
@@ -52,6 +60,17 @@ public class Word {
         this.translation = translation;
     }
 
+    public int getStatistic() {
+        return count;
+    }
+
+    public void setStatistic(int statistic) {
+        this.count = statistic;
+    }
+
+    public void upCount(){
+        ++count;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
