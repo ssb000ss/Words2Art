@@ -3,6 +3,7 @@ package com.gmail.ssb000ss.words2part.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import com.gmail.ssb000ss.exceptions.WordException;
 import com.gmail.ssb000ss.objects.Word;
@@ -21,6 +22,10 @@ public class DAOwordsImpls {
     private DBWordsHelper helper;
     private SQLiteDatabase database;
 
+    public SQLiteDatabase getDatabase() {
+        return database;
+    }
+
     public DAOwordsImpls(Context context) {
         this.context=context;
         init(context);
@@ -38,6 +43,7 @@ public class DAOwordsImpls {
         long id=dbWords.addWord(word,translation);
         if(id>0){
             list.addWord(new Word(id,word,translation));
+            Toast.makeText(context,"Слово "+id+" добалено",Toast.LENGTH_SHORT).show();
             return true;
         }else return false;
     }
@@ -56,9 +62,11 @@ public class DAOwordsImpls {
 
 
     public boolean deleteWord(long id) {
+        String temp=dbWords.getWordById(id).getWord();
         if(dbWords.deleteWord(id)){
             try {
                 list.deleteWord(id);
+                Toast.makeText(context,"Слово "+temp+" удалено",Toast.LENGTH_SHORT).show();
             } catch (WordException e) {
                 e.printStackTrace();
             }
@@ -69,7 +77,4 @@ public class DAOwordsImpls {
     public WordList getList() {
         return list;
     }
-
-
-//TODO надо полность переделать CRUD паралелльно  бд и wordlist
 }

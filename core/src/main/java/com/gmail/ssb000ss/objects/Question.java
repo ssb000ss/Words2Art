@@ -1,5 +1,6 @@
 package com.gmail.ssb000ss.objects;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,9 +20,13 @@ public class Question {
     private Set<Word> items = new HashSet<>();
     private Answer answer = null;
 
+    public Question() {
+    }
+
     public Question(Word correctWord, List<Word> listWord) {
         this.correctWord = correctWord;
         setItems(listWord);
+
     }
 
     //на вход подаём ид правельного ответа, и для упрощения список ответов
@@ -48,15 +53,15 @@ public class Question {
             else return answer = new Answer(correctWord.getId(), false);
         }
     }
+
     //метод для получения, ответа на вопрос, на вход даем слово ответа и на выходе получаем объект ответ
-    public Answer getAnswer(Word w){
+    public Answer getAnswer(Word w) {
         return getAnswer(w.getId());
     }
 
     public void setItems(List<Word> otherWords) {
         items.add(correctWord);
         items.addAll(otherWords);
-
     }
 
     public long getIdQuestion() {
@@ -70,6 +75,10 @@ public class Question {
     public Word getCorrectWord() {
 
         return correctWord;
+    }
+
+    public List<Word> getItemsList(){
+        return new ArrayList<>(items);
     }
 
 

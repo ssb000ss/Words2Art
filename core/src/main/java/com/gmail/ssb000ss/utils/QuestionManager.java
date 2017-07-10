@@ -22,10 +22,11 @@ public class QuestionManager {
     //на вход конструктора подается лишь список словарей wordlist
     public QuestionManager(WordList wordList) throws WordException {
         this.wordList = wordList;
+        //получение списка существующих id
+        this.idList = wordList.getIdList();
         //создание объекта пока только нового
         this.questions = setQuestions();
-        //получение списка существующих id
-        idList = wordList.getIdList();
+
     }
 
     //метод получение списка вопросников

@@ -1,5 +1,6 @@
 package com.gmail.ssb000ss.words2part;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,10 +10,13 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.gmail.ssb000ss.objects.Word;
+import com.gmail.ssb000ss.objects.WordList;
 import com.gmail.ssb000ss.words2part.adapters.WordAdapter;
 import com.gmail.ssb000ss.words2part.adapters.WordAdapterCursor;
+import com.gmail.ssb000ss.words2part.dao.DAOwords;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 import com.gmail.ssb000ss.words2part.db.DBWords;
+import com.gmail.ssb000ss.words2part.db.TestUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,11 +36,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Запустим один раз
-        //TestUtils.insertTestWord(database);
 
         words=new DAOwordsImpls(this);
+        //TestUtils.insertTestWord(words.getDatabase());
         adapter=new WordAdapter(this,words.getList().getAll());
         recyclerView=(RecyclerView ) findViewById(R.id.rv_words);
+
 
         recyclerView.setAdapter(adapter);
 
@@ -65,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
         if(!(word.isEmpty())&&!(translation.isEmpty())){
             words.addWord(word,translation);
             adapter.swapList(words.getList().getAll());
+            et_translation.setText("");
+            et_word.setText("");
         }
+    }
+
+    public void GoToTest(View view) {
+        Intent intent=new Intent(MainActivity.this,SecondActivity.class);
+        startActivity(intent);
     }
 }
