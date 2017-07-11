@@ -6,12 +6,27 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="apcStyles">@style/AppPageControlStyle</item>
     </style>
 
     <style name="Widget.CardContent" parent="android:Widget">
-        <item name="android:paddingLeft">24dp</item>
-        <item name="android:paddingRight">24dp</item>
+        <item name="android:paddingLeft">36dp</item>
+        <item name="android:paddingRight">16dp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="AppPageControlStyle">
+        <!-- To change indicator size -->
+        <item name="apc_indicatorSize">8dp</item>
+        <!-- To change distance between indicators -->
+        <item name="apc_indicatorDistance">8dp</item>
+        <!-- To change current item indicator size -->
+        <item name="apc_currentIndicatorSize">10dp</item>
+        <!-- To change indicator colors -->
+        <item name="apc_colorCurrentDefault">#1de9b6</item>
+        <item name="apc_colorCurrentPressed">#a7ffeb</item>
+        <item name="apc_colorNormalDefault">#009688</item>
+        <item name="apc_colorNormalPressed">#4db6ac</item>
     </style>
 </resources>
