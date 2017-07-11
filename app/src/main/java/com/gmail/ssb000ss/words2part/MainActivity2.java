@@ -1,10 +1,12 @@
 package com.gmail.ssb000ss.words2part;
 
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 import com.gmail.ssb000ss.words2part.db.TestUtils;
