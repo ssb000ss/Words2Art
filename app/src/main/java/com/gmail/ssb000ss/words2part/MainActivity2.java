@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
+import com.gmail.ssb000ss.words2part.db.TestUtils;
 import com.gmail.ssb000ss.words2part.fragments.DictionaryFragment;
 import com.gmail.ssb000ss.words2part.fragments.TestFragment;
 import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
@@ -41,25 +42,23 @@ public class MainActivity2 extends FragmentActivity {
 
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
+            FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_translate:
-                    FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                     ft1.replace(R.id.content, translateFragment);
                     ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     ft1.commit();
                     return true;
 
                 case R.id.navigation_dictionary:
-                    FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
-                    ft2.replace(R.id.content, dictionaryFragment);
-                    ft2.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    ft2.commit();
+                    ft1.replace(R.id.content, dictionaryFragment);
+                    ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft1.commit();
                     return true;
                 case R.id.navigation_test:
-                    FragmentTransaction ft3 = getSupportFragmentManager().beginTransaction();
-                    ft3.replace(R.id.content, testFragment);
-                    ft3.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    ft3.commit();
+                    ft1.replace(R.id.content, testFragment);
+                    ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft1.commit();
                     return true;
             }
             return false;
