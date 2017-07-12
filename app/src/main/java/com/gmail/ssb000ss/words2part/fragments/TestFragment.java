@@ -47,16 +47,17 @@ public class TestFragment extends Fragment implements View.OnClickListener {
 
     public TestFragment(DAOwordsImpls words) {
         this.words = words;
-        this.list = this.words.getList();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_test, container, false);
+        this.list = this.words.getList();
         initViews(view);
         setFonts();
         try {
-            if (list.getAll().size() > 3) {
+            if ((!list.getAll().isEmpty())&&list.getAll().size() > 3) {
                 lt_test_error.setVisibility(View.INVISIBLE);
                 questionManager = new QuestionManager(list);
                 questions = questionManager.getQuestions();

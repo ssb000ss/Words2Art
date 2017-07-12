@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:text="Для полноценного теста \nне хватает количество слов...\nТы давай не халявничай!"
+            android:text="@string/tv_test_error"
             android:textColor="#CACACA"
             android:textSize="16sp" />
     </LinearLayout>

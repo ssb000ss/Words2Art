@@ -5,6 +5,6 @@
     <string name="title_dictionary">Dictinonary</string>
     <string name="title_test">Test</string>
     <string name="title_activity_main2">MainActivity2</string>
-
-    <string name="lbl_dictionary_db_is_empty">В базе данных нету слов...\n Хватит прохлаждаться, Делай!</string>
+    <string name="lbl_dictionary_db_is_empty">В базе данных нету слов...\n Хватит прохлаждаться, Грызи гранит науки!</string>
+    <string name="tv_test_error">Для полноценного теста не хватает слов... \nТы давай, не халявничай!</string>
 </resources>
