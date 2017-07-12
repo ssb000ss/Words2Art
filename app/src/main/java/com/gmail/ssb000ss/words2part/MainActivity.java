@@ -1,10 +1,12 @@
 package com.gmail.ssb000ss.words2part;
 
+import android.app.ActionBar;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -16,15 +18,19 @@ import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
 
 public class MainActivity extends FragmentActivity {
 
-    DictionaryFragment dictionaryFragment;
-    TranslateFragment translateFragment;
-    TestFragment testFragment;
-    DAOwordsImpls words;
+    private Toolbar toolbar;
+    private DictionaryFragment dictionaryFragment;
+    private TranslateFragment translateFragment;
+    private TestFragment testFragment;
+    private DAOwordsImpls words;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        initToolBar();
+
 
         words = new DAOwordsImpls(this);
 
@@ -38,6 +44,11 @@ public class MainActivity extends FragmentActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    private void initToolBar() {
+        toolbar=(Toolbar)findViewById(R.id.test_toolbar);
+        toolbar.setTitle("Word2Part");
+        toolbar.setTitleTextColor(getColor(R.color.colorText));
+    }
 
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
