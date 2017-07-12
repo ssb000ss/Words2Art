@@ -49,10 +49,12 @@ public class DBWords {
         cursor = mDb.rawQuery("SELECT * FROM " + DBWordsContract.DBWordEntry.TABLE_NAME +
                 " WHERE " + DBWordsContract.DBWordEntry._ID + "=" + id, null);
         cursor.moveToFirst();
+        if(cursor.getCount()!=0){
         String word = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_WORD));
         String translation = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION));
         int statistic = cursor.getInt(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLOMN_STATISTIC));
         return new Word(id, word, translation, statistic);
+        }else return null;
     }
 
     private void swapCursor() {

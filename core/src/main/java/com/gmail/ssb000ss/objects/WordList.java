@@ -70,7 +70,6 @@ public class WordList {
 
     public boolean addWord(Word word) {
         return wordList.add(word) || idList.add(word.getId());
-
     }
 
     public boolean deleteWord(Word word) {

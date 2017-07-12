@@ -1,65 +1,72 @@
 package com.gmail.ssb000ss.words2part;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Typeface;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.View;
-import android.widget.EditText;
+import android.support.design.widget.BottomNavigationView;
+import android.view.MenuItem;
+import android.widget.TextView;
 
-import com.gmail.ssb000ss.words2part.adapters.WordAdapter;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
+import com.gmail.ssb000ss.words2part.db.TestUtils;
+import com.gmail.ssb000ss.words2part.fragments.DictionaryFragment;
+import com.gmail.ssb000ss.words2part.fragments.TestFragment;
+import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
 
-    RecyclerView recyclerView;
-
-    WordAdapter adapter;
-
-
+    DictionaryFragment dictionaryFragment;
+    TranslateFragment translateFragment;
+    TestFragment testFragment;
     DAOwordsImpls words;
-
-    EditText et_word;
-    EditText et_translation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main);
 
-        et_translation=(EditText) findViewById(R.id.et_translate);
-        et_word=(EditText) findViewById(R.id.et_word);
+        words = new DAOwordsImpls(this);
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+        //Запустим один раз
+        //TestUtils.insertTestWord(words.getDatabase());
+        dictionaryFragment = new DictionaryFragment(words);
+        translateFragment = new TranslateFragment(words);
+        testFragment = new TestFragment(words);
 
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                long id= (long) viewHolder.itemView.getTag();
-                if(words.deleteWord(id)){
-                    adapter.swapList(words.getList().getAll());
-                }
-            }
-        }).attachToRecyclerView(recyclerView);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-    public void btn_add(View view) {
-        String word=et_word.getText().toString();
-        String translation=et_translation.getText().toString();
-        if(!(word.isEmpty())&&!(translation.isEmpty())){
-            words.addWord(word,translation);
-            adapter.swapList(words.getList().getAll());
-            et_translation.setText("");
-            et_word.setText("");
+
+
+    public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(MenuItem item) {
+            FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+            switch (item.getItemId()) {
+                case R.id.navigation_translate:
+                    ft1.replace(R.id.content, translateFragment);
+                    ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft1.commit();
+                    return true;
+
+                case R.id.navigation_dictionary:
+                    ft1.replace(R.id.content, dictionaryFragment);
+                    ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft1.commit();
+                    return true;
+                case R.id.navigation_test:
+                    ft1.replace(R.id.content, testFragment);
+                    ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft1.commit();
+                    return true;
+            }
+            return false;
         }
-    }
 
-    public void GoToTest(View view) {
-        Intent intent=new Intent(MainActivity.this,SecondActivity.class);
-        startActivity(intent);
-    }
+    };
+
+
 }

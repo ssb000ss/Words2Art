@@ -2,14 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
 
-    <TextView
-    android:layout_width="wrap_content"
+    android:orientation="vertical">
+<EditText
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="This in Translate"
-    android:textSize="42sp" />
+    android:id="@+id/et_word"
+    android:hint="the word"
+    />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_translate"
+        android:hint="the translate"
+        />
+    <Button
+        android:layout_gravity="right"
+        android:id="@+id/btn_add_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add word"
+       />
 
 </LinearLayout>

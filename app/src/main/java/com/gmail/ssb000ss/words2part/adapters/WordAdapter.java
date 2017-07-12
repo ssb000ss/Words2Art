@@ -17,7 +17,7 @@ import java.util.List;
  * Created by ssb000ss on 03.07.2017.
  */
 
-public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder>{
+public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
     Context context;
     List<Word> list;
 
@@ -34,10 +34,10 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
 
     @Override
     public void onBindViewHolder(WordViewHolder holder, int position) {
-        Word tempWord=list.get(position);
+        Word tempWord = list.get(position);
         holder.tv_word.setText(tempWord.getWord());
         holder.tv_translation.setText(tempWord.getTranslation());
-        holder.tv_statistic.setText(tempWord.getStatistic()*100/ DBWordsContract.DBWordEntry.MEMORIZATION_LEVEL+"%");
+        holder.tv_statistic.setText(tempWord.getStatistic() * 100 / DBWordsContract.DBWordEntry.MEMORIZATION_LEVEL + "%");
         holder.itemView.setTag(tempWord.getId());
     }
 
@@ -45,8 +45,9 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
     public int getItemCount() {
         return list.size();
     }
-    public void swapList(List<Word> newlist){
-        list=newlist;
+
+    public void swapList(List<Word> newlist) {
+        list = newlist;
         if (list != null) {
             this.notifyDataSetChanged();
         }
