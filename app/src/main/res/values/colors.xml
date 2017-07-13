@@ -4,5 +4,8 @@
     <color name="colorPrimaryDark">#D01716</color>
     <color name="colorAccent">#000000</color>
 
-    <color name="colorText">#ffffff</color>
+    <color name="color_title_toolbar">#FCE3E4</color>
+    <color name="color_answer_correct">#27AE37</color>
+    <color name="color_backgroudn_default">#FFFAFAFA</color>
+
 </resources>

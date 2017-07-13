@@ -7,4 +7,6 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="lbl_dictionary_db_is_empty">В базе данных нету слов...\n Хватит прохлаждаться, Грызи гранит науки!</string>
     <string name="tv_test_error">Для полноценного теста не хватает слов... \nТы давай, не халявничай!</string>
+    <string name="btn_test_result">Далее</string>
+    <string name="test_result_dep">Если долго мучиться, что нибудь получиьтся</string>
 </resources>

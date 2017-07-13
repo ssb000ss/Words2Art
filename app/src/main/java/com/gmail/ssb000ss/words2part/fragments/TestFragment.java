@@ -1,11 +1,17 @@
 package com.gmail.ssb000ss.words2part.fragments;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,23 +26,27 @@ import com.gmail.ssb000ss.words2part.WordConstants;
 import com.gmail.ssb000ss.words2part.dao.DAOwords;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
  * Created by ssb000ss on 11.07.2017.
  */
 
+//// TODO: 13.07.2017  Закончи функционал с тестов имеено результатов 
 public class TestFragment extends Fragment implements View.OnClickListener {
-//// TODO: 12.07.2017 Баг с обновлением вопросов
+
     private Typeface tf_answers;
     private Typeface tf_question;
     private Typeface tv_test_error;
     private LinearLayout lt_test_error;
+    private LinearLayout lt_test_result;
 
     private TextView tv_test;
     private TextView tv_question;
 
-    private Button[] answers = new Button[4];
+    private TextView[] answers = new TextView[4];
 
     int count = 1;
     QuestionManager questionManager;
@@ -44,6 +54,11 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     Question temp = new Question();
     WordList list;
     DAOwordsImpls words;
+
+    Vibrator vibrator;
+
+    Animation shakeanimation;
+    Animation scaleanimation;
 
     public TestFragment(DAOwordsImpls words) {
         this.words = words;
@@ -54,10 +69,13 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_test, container, false);
         this.list = this.words.getList();
+
+        initAnim();
+        vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         initViews(view);
         setFonts();
         try {
-            if ((!list.getAll().isEmpty())&&list.getAll().size() > 3) {
+            if ((!list.getAll().isEmpty()) && list.getAll().size() > 3) {
                 lt_test_error.setVisibility(View.INVISIBLE);
                 questionManager = new QuestionManager(list);
                 questions = questionManager.getQuestions();
@@ -84,6 +102,11 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    private void initAnim() {
+        shakeanimation = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+        scaleanimation = AnimationUtils.loadAnimation(getContext(), R.anim.scale);
+    }
+
     private void initListener() {
         for (int i = 0; i < 4; i++) {
             answers[i].setOnClickListener(this);
@@ -103,13 +126,17 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         tf_answers = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_regular);
         tf_question = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Montserrat_medium);
         tv_test_error = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
+
         tv_question = (TextView) view.findViewById(R.id.tv_question);
         tv_test = (TextView) view.findViewById(R.id.tv_test);
-        lt_test_error=(LinearLayout)view.findViewById(R.id.lt_test_error);
-        answers[0] = (Button) view.findViewById(R.id.tv_answer_1);
-        answers[1] = (Button) view.findViewById(R.id.tv_answer_2);
-        answers[2] = (Button) view.findViewById(R.id.tv_answer_3);
-        answers[3] = (Button) view.findViewById(R.id.tv_answer_4);
+
+        lt_test_error = (LinearLayout) view.findViewById(R.id.lt_test_error);
+        lt_test_result = (LinearLayout) view.findViewById(R.id.lt_test_result);
+
+        answers[0] = (TextView) view.findViewById(R.id.tv_answer_1);
+        answers[1] = (TextView) view.findViewById(R.id.tv_answer_2);
+        answers[2] = (TextView) view.findViewById(R.id.tv_answer_3);
+        answers[3] = (TextView) view.findViewById(R.id.tv_answer_4);
     }
 
     public void setQuestionItems(Question q) {
@@ -138,18 +165,23 @@ public class TestFragment extends Fragment implements View.OnClickListener {
                 break;
         }
         if (temp.getAnswer(answerid).isCorrect()) {
-            Toast.makeText(getContext(), "Правильно!!!", Toast.LENGTH_SHORT).show();
+            tv_question.startAnimation(scaleanimation);
+            // Toast.makeText(getContext(), "Правильно!!!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), "Не правильно!!!", Toast.LENGTH_SHORT).show();
+            vibrator.vibrate(new long[]{100L, 100L, 100L}, 2);
+            tv_question.startAnimation(shakeanimation);
+            // Toast.makeText(getContext(), "Не правильно!!!", Toast.LENGTH_SHORT).show();
         }
 
         if (count < questions.size()) {
             setQuestionItems(questions.get(count));
             count++;
         } else {
+            lt_test_result.setVisibility(View.VISIBLE);
             //todo Что должно быть по окончанию теста?, может быть результаты показать или что то подобное
             Toast.makeText(getContext(), "Тест окончен!!!", Toast.LENGTH_LONG).show();
         }
 
     }
+
 }

@@ -36,15 +36,14 @@ public class DictionaryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dictionary, container, false);
-
         initViews(v);
         dbIsEmpty();
-        adapter=new WordAdapter(getContext(),words.getList().getAll());
+        adapter = new WordAdapter(getContext(), words.getList().getAll());
         recyclerView = (RecyclerView) v.findViewById(R.id.rv_words);
         recyclerView.setAdapter(adapter);
 
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -53,8 +52,8 @@ public class DictionaryFragment extends Fragment {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                long id= (long) viewHolder.itemView.getTag();
-                if(words.deleteWord(id)){
+                long id = (long) viewHolder.itemView.getTag();
+                if (words.deleteWord(id)) {
                     // TODO: 12.07.2017 При удалений, либо внесений изменений нужно полностью менять содержимое !!!(а то ты добавляешь а в тестах старая информация)
                     adapter.swapList(words.getList().getAll());
                     dbIsEmpty();
@@ -65,17 +64,17 @@ public class DictionaryFragment extends Fragment {
     }
 
     private void dbIsEmpty() {
-        if(words.getList().getAll().isEmpty()){
+        if (words.getList().getAll().isEmpty()) {
             lt_dictionaty_error.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             lt_dictionaty_error.setVisibility(View.INVISIBLE);
         }
     }
 
     private void initViews(View v) {
-        lbl_is_empty=(TextView)v.findViewById(R.id.tv_db_is_empty);
-        lt_dictionaty_error=(LinearLayout)v.findViewById(R.id.lt_dictionary_error);
-        Typeface tf_lbl= Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
+        lbl_is_empty = (TextView) v.findViewById(R.id.tv_db_is_empty);
+        lt_dictionaty_error = (LinearLayout) v.findViewById(R.id.lt_dictionary_error);
+        Typeface tf_lbl = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
         lbl_is_empty.setTypeface(tf_lbl);
     }
 }
