@@ -77,4 +77,11 @@ public class DAOwordsImpls {
     public WordList getList() {
         return list;
     }
+
+    public boolean upCount(long id) throws WordException {
+        if(dbWords.upCount(id)){
+            list.upCount(id);
+            return true;
+        }else return false;
+    }
 }

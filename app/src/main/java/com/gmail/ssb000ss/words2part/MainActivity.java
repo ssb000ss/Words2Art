@@ -7,15 +7,15 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
+import com.gmail.ssb000ss.words2part.db.TestUtils;
 import com.gmail.ssb000ss.words2part.fragments.DictionaryFragment;
 import com.gmail.ssb000ss.words2part.fragments.TestFragment;
 import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements TestFragment.TestListener {
 
     private Toolbar toolbar;
     private TextView tv_toolbar;
@@ -27,6 +27,10 @@ public class MainActivity extends FragmentActivity {
 
     FragmentTransaction ft;
     private DAOwordsImpls words;
+
+    BottomNavigationView navigation;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +48,17 @@ public class MainActivity extends FragmentActivity {
         dictionaryFragment = new DictionaryFragment(words);
         translateFragment = new TranslateFragment(words);
 
-
-
-        //initDictionaryFragment();
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private void initTitleToolBar(String title) {
+    public void initTitleToolBar(String title) {
         tv_toolbar.setText(title);
         tv_toolbar.setTypeface(tf_tv_toolbar);
     }
 
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             ft = getSupportFragmentManager().beginTransaction();
@@ -80,14 +79,14 @@ public class MainActivity extends FragmentActivity {
     };
 
     private void initTestFragment() {
-        testFragment = new TestFragment(words);
+        testFragment = new TestFragment(words,this);
         initTitleToolBar("Test");
         ft.replace(R.id.content, testFragment);
         ft.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
     }
 
-    private void initDictionaryFragment() {
+    public void initDictionaryFragment() {
         initTitleToolBar("Dictionary");
         ft.replace(R.id.content, dictionaryFragment);
         ft.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -102,4 +101,12 @@ public class MainActivity extends FragmentActivity {
     }
 
 
+    @Override
+    public void OnClickNextButton() {
+        FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+        ft1.replace(R.id.content, dictionaryFragment);
+        ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft1.commit();
+        navigation.setSelectedItemId(R.id.navigation_dictionary);
+    }
 }

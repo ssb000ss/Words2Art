@@ -5,6 +5,8 @@ package com.gmail.ssb000ss.words2part;
  */
 
 public class WordConstants {
+    public static final int MEMORIZATION_LEVEL=4;
+
     public static final class Fonts{
         public static final String Roboto_regular="fonts/Roboto-Regular.ttf";
         public static final String Roboto_medium="fonts/Roboto-Medium.ttf";

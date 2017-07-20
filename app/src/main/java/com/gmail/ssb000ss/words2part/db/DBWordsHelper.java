@@ -26,7 +26,7 @@ public class DBWordsHelper extends SQLiteOpenHelper {
                 DBWordsContract.DBWordEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DBWordsContract.DBWordEntry.COLUMN_WORD + " TEXT NOT NULL UNIQUE, " +
                 DBWordsContract.DBWordEntry.COLUMN_TRANSLATION + "," +
-                DBWordsContract.DBWordEntry.COLOMN_STATISTIC+" INTEGER DEFAULT (0) NOT NULL); ";
+                DBWordsContract.DBWordEntry.COLUMN_STATISTIC +" INTEGER NOT NULL); ";
         db.execSQL(SQL_CREATE_WAITLIST_TABLE);
     }
 

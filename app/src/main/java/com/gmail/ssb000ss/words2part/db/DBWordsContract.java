@@ -12,8 +12,7 @@ public class DBWordsContract {
         public static final String TABLE_NAME="dictionary";
         public static final String COLUMN_WORD="words";
         public static final String COLUMN_TRANSLATION="translation";
-        public static final String COLOMN_STATISTIC="statistic";
-        public static final int MEMORIZATION_LEVEL=50;
+        public static final String COLUMN_STATISTIC ="statistic";
     }
 
 

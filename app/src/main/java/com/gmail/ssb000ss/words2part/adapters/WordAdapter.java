@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.gmail.ssb000ss.objects.Word;
 import com.gmail.ssb000ss.words2part.R;
-import com.gmail.ssb000ss.words2part.db.DBWordsContract;
+import com.gmail.ssb000ss.words2part.WordConstants;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         Word tempWord = list.get(position);
         holder.tv_word.setText(tempWord.getWord());
         holder.tv_translation.setText(tempWord.getTranslation());
-        holder.tv_statistic.setText(tempWord.getStatistic() * 100 / DBWordsContract.DBWordEntry.MEMORIZATION_LEVEL + "%");
+        holder.tv_statistic.setText(tempWord.getStatistic() * 100 / WordConstants.MEMORIZATION_LEVEL + "%");
         holder.itemView.setTag(tempWord.getId());
     }
 

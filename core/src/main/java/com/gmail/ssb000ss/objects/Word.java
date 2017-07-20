@@ -9,7 +9,7 @@ public class Word {
     private long id;
     private String word;
     private String translation;
-    private int count;
+    private int count=0;
 
     public Word() {
     }

@@ -27,7 +27,7 @@ public class DictionaryFragment extends Fragment {
     }
 
     TextView lbl_is_empty;
-    LinearLayout lt_dictionaty_error;
+    LinearLayout lt_dictionary_error;
     RecyclerView recyclerView;
     WordAdapter adapter;
     DAOwordsImpls words;
@@ -43,7 +43,7 @@ public class DictionaryFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -65,15 +65,15 @@ public class DictionaryFragment extends Fragment {
 
     private void dbIsEmpty() {
         if (words.getList().getAll().isEmpty()) {
-            lt_dictionaty_error.setVisibility(View.VISIBLE);
+            lt_dictionary_error.setVisibility(View.VISIBLE);
         } else {
-            lt_dictionaty_error.setVisibility(View.INVISIBLE);
+            lt_dictionary_error.setVisibility(View.INVISIBLE);
         }
     }
 
     private void initViews(View v) {
         lbl_is_empty = (TextView) v.findViewById(R.id.tv_db_is_empty);
-        lt_dictionaty_error = (LinearLayout) v.findViewById(R.id.lt_dictionary_error);
+        lt_dictionary_error = (LinearLayout) v.findViewById(R.id.lt_dictionary_error);
         Typeface tf_lbl = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
         lbl_is_empty.setTypeface(tf_lbl);
     }

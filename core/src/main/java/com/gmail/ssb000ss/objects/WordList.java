@@ -92,4 +92,12 @@ public class WordList {
         return idList.contains(id);
     }
 
+    public boolean upCount(long id) throws WordException {
+        Word temp=getWordById(id);
+        if(!(temp==null)){
+           temp.upCount();
+            return true;
+        }else return false;
+    }
+
 }

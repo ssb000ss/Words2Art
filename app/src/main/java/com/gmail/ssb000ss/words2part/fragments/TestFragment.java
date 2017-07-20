@@ -1,12 +1,10 @@
 package com.gmail.ssb000ss.words2part.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,67 +19,102 @@ import com.gmail.ssb000ss.exceptions.WordException;
 import com.gmail.ssb000ss.objects.Question;
 import com.gmail.ssb000ss.objects.WordList;
 import com.gmail.ssb000ss.utils.QuestionManager;
+import com.gmail.ssb000ss.words2part.MainActivity;
 import com.gmail.ssb000ss.words2part.R;
 import com.gmail.ssb000ss.words2part.WordConstants;
-import com.gmail.ssb000ss.words2part.dao.DAOwords;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by ssb000ss on 11.07.2017.
  */
 
-//// TODO: 13.07.2017  Закончи функционал с тестов имеено результатов 
 public class TestFragment extends Fragment implements View.OnClickListener {
 
-    private Typeface tf_answers;
+    private Typeface tf_roboto_regular;
     private Typeface tf_question;
-    private Typeface tv_test_error;
+    private Typeface tf_test_error;
+
     private LinearLayout lt_test_error;
     private LinearLayout lt_test_result;
+    private LinearLayout lt_test_testing;
+
+    private Button btn_next;
 
     private TextView tv_test;
     private TextView tv_question;
+    private TextView tv_result;
 
     private TextView[] answers = new TextView[4];
 
     int count = 1;
+    int correctAnswer = 0;
+    int size = 0;
+
     QuestionManager questionManager;
     List<Question> questions;
     Question temp = new Question();
     WordList list;
     DAOwordsImpls words;
 
-    Vibrator vibrator;
+    Vibrator vibr;
 
+    MainActivity context;
     Animation shakeanimation;
     Animation scaleanimation;
 
+
+    TestFragment.TestListener TestListener;
+
+    public interface TestListener {
+        void OnClickNextButton();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        TestListener = (TestFragment.TestListener) context;
+    }
+
+
     public TestFragment(DAOwordsImpls words) {
         this.words = words;
+    }
 
+    public TestFragment(DAOwordsImpls words, MainActivity context) {
+        this.words = words;
+        this.context = context;
+        this.list = words.getList();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_test, container, false);
-        this.list = this.words.getList();
+
+        size = list.getAll().size();
 
         initAnim();
-        vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibr = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         initViews(view);
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestListener.OnClickNextButton();
+            }
+        });
         setFonts();
         try {
             if ((!list.getAll().isEmpty()) && list.getAll().size() > 3) {
                 lt_test_error.setVisibility(View.INVISIBLE);
+                lt_test_testing.setVisibility(View.VISIBLE);
                 questionManager = new QuestionManager(list);
                 questions = questionManager.getQuestions();
                 setQuestionItems(questions.get(0));
             } else {
                 lt_test_error.setVisibility(View.VISIBLE);
+
             }
         } catch (WordException e) {
             e.printStackTrace();
@@ -115,23 +148,28 @@ public class TestFragment extends Fragment implements View.OnClickListener {
 
     private void setFonts() {
         tv_question.setTypeface(tf_question);
-        answers[0].setTypeface(tf_answers);
-        answers[1].setTypeface(tf_answers);
-        answers[2].setTypeface(tf_answers);
-        answers[3].setTypeface(tf_answers);
-        tv_test.setTypeface(tv_test_error);
+        answers[0].setTypeface(tf_roboto_regular);
+        answers[1].setTypeface(tf_roboto_regular);
+        answers[2].setTypeface(tf_roboto_regular);
+        answers[3].setTypeface(tf_roboto_regular);
+        tv_test.setTypeface(tf_test_error);
+        tv_result.setTypeface(tf_roboto_regular);
     }
 
     private void initViews(View view) {
-        tf_answers = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_regular);
+        tf_roboto_regular = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_regular);
         tf_question = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Montserrat_medium);
-        tv_test_error = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
+        tf_test_error = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
 
         tv_question = (TextView) view.findViewById(R.id.tv_question);
         tv_test = (TextView) view.findViewById(R.id.tv_test);
+        tv_result = (TextView) view.findViewById(R.id.tv_test_result);
+
+        btn_next = (Button) view.findViewById(R.id.btn_test_result_next);
 
         lt_test_error = (LinearLayout) view.findViewById(R.id.lt_test_error);
         lt_test_result = (LinearLayout) view.findViewById(R.id.lt_test_result);
+        lt_test_testing = (LinearLayout) view.findViewById(R.id.lt_test_testing);
 
         answers[0] = (TextView) view.findViewById(R.id.tv_answer_1);
         answers[1] = (TextView) view.findViewById(R.id.tv_answer_2);
@@ -146,6 +184,28 @@ public class TestFragment extends Fragment implements View.OnClickListener {
             answers[i].setText(temp.getItemsList().get(i).getTranslation());
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        System.out.println
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -166,9 +226,15 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         }
         if (temp.getAnswer(answerid).isCorrect()) {
             tv_question.startAnimation(scaleanimation);
+            correctAnswer++;
+            try {
+                words.upCount(temp.getCorrectWord().getId());
+            } catch (WordException e) {
+                e.printStackTrace();
+            }
             // Toast.makeText(getContext(), "Правильно!!!", Toast.LENGTH_SHORT).show();
         } else {
-            vibrator.vibrate(new long[]{100L, 100L, 100L}, 2);
+            vibr.vibrate(new long[]{100L, 100L, 100L}, 2);
             tv_question.startAnimation(shakeanimation);
             // Toast.makeText(getContext(), "Не правильно!!!", Toast.LENGTH_SHORT).show();
         }
@@ -177,9 +243,10 @@ public class TestFragment extends Fragment implements View.OnClickListener {
             setQuestionItems(questions.get(count));
             count++;
         } else {
+            lt_test_testing.setVisibility(View.INVISIBLE);
             lt_test_result.setVisibility(View.VISIBLE);
-            //todo Что должно быть по окончанию теста?, может быть результаты показать или что то подобное
-            Toast.makeText(getContext(), "Тест окончен!!!", Toast.LENGTH_LONG).show();
+            tv_result.setText(correctAnswer + "/" + size);
+            context.initTitleToolBar("Result");
         }
 
     }

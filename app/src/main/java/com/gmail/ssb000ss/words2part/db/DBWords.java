@@ -2,11 +2,11 @@ package com.gmail.ssb000ss.words2part.db;
 
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.gmail.ssb000ss.objects.Word;
+import com.gmail.ssb000ss.words2part.WordConstants;
 
 import java.util.ArrayList;
 
@@ -33,6 +33,7 @@ public class DBWords {
         ContentValues cv = new ContentValues();
         cv.put(DBWordsContract.DBWordEntry.COLUMN_WORD, word);
         cv.put(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION, translation);
+        cv.put(DBWordsContract.DBWordEntry.COLUMN_STATISTIC,0);
         return mDb.insert(DBWordsContract.DBWordEntry.TABLE_NAME, null, cv);
     }
 
@@ -52,7 +53,7 @@ public class DBWords {
         if(cursor.getCount()!=0){
         String word = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_WORD));
         String translation = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION));
-        int statistic = cursor.getInt(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLOMN_STATISTIC));
+        int statistic = cursor.getInt(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_STATISTIC));
         return new Word(id, word, translation, statistic);
         }else return null;
     }
@@ -97,23 +98,26 @@ public class DBWords {
         long id = cursor.getLong(cursor.getColumnIndex(DBWordsContract.DBWordEntry._ID));
         String word = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_WORD));
         String translate = cursor.getString(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_TRANSLATION));
-        int statistic = cursor.getInt(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLOMN_STATISTIC));
+        int statistic = cursor.getInt(cursor.getColumnIndex(DBWordsContract.DBWordEntry.COLUMN_STATISTIC));
         //добовляем его в лист
         list.add(new Word(id, word, translate, statistic));
         //меняем расположение курсора на следующее значение
         cursor.moveToNext();
     }
 
-    private boolean upCount(long id) {
+    public boolean upCount(long id) {
+        boolean result=false;
         if (!(getWordById(id) == null)) {
             ContentValues cv= new ContentValues();
             int old = getWordById(id).getStatistic();
-            if (old >= DBWordsContract.DBWordEntry.MEMORIZATION_LEVEL) {
+            if (old == WordConstants.MEMORIZATION_LEVEL-1) {
                 deleteWord(id);
+                result =false;
             } else {
-                cv.put(DBWordsContract.DBWordEntry.COLOMN_STATISTIC, ++old);
+                cv.put(DBWordsContract.DBWordEntry.COLUMN_STATISTIC, ++old);
+                result= mDb.update(DBWordsContract.DBWordEntry.TABLE_NAME, cv, DBWordsContract.DBWordEntry._ID + "=" + id, null) > 0;
             }
-            return mDb.update(DBWordsContract.DBWordEntry.TABLE_NAME, cv, DBWordsContract.DBWordEntry._ID + "=" + id, null) > 0;
-        } else return false;
-        }
+        }else result=false;
+        return result;
+    }
 }
