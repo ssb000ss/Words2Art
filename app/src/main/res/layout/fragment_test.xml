@@ -121,10 +121,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_test_error" />
+            android:src="@drawable/ic_comic" />
 
         <TextView
-            android:id="@+id/tv_test"
+            android:id="@+id/tv_test_empty_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"

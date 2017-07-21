@@ -14,7 +14,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gmail.ssb000ss.exceptions.WordException;
 import com.gmail.ssb000ss.objects.Question;
@@ -26,7 +25,6 @@ import com.gmail.ssb000ss.words2part.WordConstants;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by ssb000ss on 11.07.2017.
@@ -46,7 +44,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
 
     private Button btn_next;
 
-    private TextView tv_test;
+    private TextView tv_test_empty_words;
     private TextView tv_question;
     private TextView tv_result;
 
@@ -119,6 +117,8 @@ public class TestFragment extends Fragment implements View.OnClickListener {
                 questions = questionManager.getQuestions();
                 setQuestionItems(questions.get(0));
             } else {
+                lt_test_result.setVisibility(View.INVISIBLE);
+                lt_test_testing.setVisibility(View.INVISIBLE);
                 lt_test_error.setVisibility(View.VISIBLE);
 
             }
@@ -158,17 +158,16 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         answers[1].setTypeface(tf_roboto_regular);
         answers[2].setTypeface(tf_roboto_regular);
         answers[3].setTypeface(tf_roboto_regular);
-        tv_test.setTypeface(tf_test_error);
+        tv_test_empty_words.setTypeface(tf_roboto_regular);
         tv_result.setTypeface(tf_roboto_regular);
     }
 
     private void initViews(View view) {
         tf_roboto_regular = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_regular);
         tf_question = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Montserrat_medium);
-        tf_test_error = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
 
         tv_question = (TextView) view.findViewById(R.id.tv_question);
-        tv_test = (TextView) view.findViewById(R.id.tv_test);
+        tv_test_empty_words = (TextView) view.findViewById(R.id.tv_test_empty_word);
         tv_result = (TextView) view.findViewById(R.id.tv_test_result);
 
         btn_next = (Button) view.findViewById(R.id.btn_test_result_next);
@@ -190,11 +189,6 @@ public class TestFragment extends Fragment implements View.OnClickListener {
             answers[i].setText(temp.getItemsList().get(i).getTranslation());
         }
     }
-
-
-
-
-
 
     @Override
     public void onDestroyView() {

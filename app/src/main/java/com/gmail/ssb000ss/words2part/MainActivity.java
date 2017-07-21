@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
 
 public class MainActivity extends FragmentActivity implements TestFragment.TestListener {
 
+    public static final String TAG="main";
     private Toolbar toolbar;
     private TextView tv_toolbar;
     Typeface tf_tv_toolbar;
@@ -30,7 +32,29 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
 
     BottomNavigationView navigation;
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +67,18 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
 
         words = new DAOwordsImpls(this);
 
+
+
         //Запустим один раз
         //TestUtils.insertTestWord(words.getDatabase());
+
         dictionaryFragment = new DictionaryFragment(words);
         translateFragment = new TranslateFragment(words);
+
+        FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+        ft1.replace(R.id.content, translateFragment);
+        ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft1.commit();
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

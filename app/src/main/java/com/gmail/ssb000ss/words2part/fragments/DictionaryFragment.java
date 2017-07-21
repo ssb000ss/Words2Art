@@ -74,7 +74,7 @@ public class DictionaryFragment extends Fragment {
     private void initViews(View v) {
         lbl_is_empty = (TextView) v.findViewById(R.id.tv_db_is_empty);
         lt_dictionary_error = (LinearLayout) v.findViewById(R.id.lt_dictionary_error);
-        Typeface tf_lbl = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_black);
+        Typeface tf_lbl = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_regular);
         lbl_is_empty.setTypeface(tf_lbl);
     }
 }
