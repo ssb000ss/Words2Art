@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ import java.util.logging.Logger;
  */
 
 public class TestFragment extends Fragment implements View.OnClickListener {
+    
+    public static final String TAG="TestFragment";
 
     private Typeface tf_roboto_regular;
     private Typeface tf_question;
@@ -76,6 +79,8 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     public void onAttach(Context context) {
         super.onAttach(context);
         TestListener = (TestFragment.TestListener) context;
+        this.list = words.getList();
+        Log.d(TAG, "onAttach");
     }
 
 
@@ -86,7 +91,8 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     public TestFragment(DAOwordsImpls words, MainActivity context) {
         this.words = words;
         this.context = context;
-        this.list = words.getList();
+        Log.d(TAG, "TestFragment: Constructor ");
+
     }
 
     @Override
@@ -94,7 +100,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_test, container, false);
 
         size = list.getAll().size();
-
+        Log.d(TAG, "onCreateView: ");
         initAnim();
         vibr = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         initViews(view);
@@ -185,25 +191,18 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        System.out.println
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
+
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        words=null;
+        list=null;
+        System.gc();
+        Log.d(TAG, "onDestroyView: ");
     }
 
 

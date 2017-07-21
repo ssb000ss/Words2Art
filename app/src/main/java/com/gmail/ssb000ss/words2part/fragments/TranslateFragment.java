@@ -28,19 +28,19 @@ public class TranslateFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_translate, container, false);
-        word = (EditText) view.findViewById(R.id.et_word);
-        translate = (EditText) view.findViewById(R.id.et_translate);
-
-        btn_add = (Button) view.findViewById(R.id.btn_add_word);
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                impls.addWord(word.getText().toString(), translate.getText().toString());
-                word.setText("");
-                translate.setText("");
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_translate_release, container, false);
+//        word = (EditText) view.findViewById(R.id.et_word);
+//        translate = (EditText) view.findViewById(R.id.et_translate);
+//
+//        btn_add = (Button) view.findViewById(R.id.btn_add_word);
+//        btn_add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                impls.addWord(word.getText().toString(), translate.getText().toString());
+//                word.setText("");
+//                translate.setText("");
+//            }
+//        });
         return view;
     }
 }

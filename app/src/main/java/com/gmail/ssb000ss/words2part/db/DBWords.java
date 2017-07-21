@@ -106,18 +106,15 @@ public class DBWords {
     }
 
     public boolean upCount(long id) {
-        boolean result=false;
         if (!(getWordById(id) == null)) {
-            ContentValues cv= new ContentValues();
+            ContentValues cv = new ContentValues();
             int old = getWordById(id).getStatistic();
-            if (old == WordConstants.MEMORIZATION_LEVEL-1) {
-                deleteWord(id);
-                result =false;
-            } else {
-                cv.put(DBWordsContract.DBWordEntry.COLUMN_STATISTIC, ++old);
-                result= mDb.update(DBWordsContract.DBWordEntry.TABLE_NAME, cv, DBWordsContract.DBWordEntry._ID + "=" + id, null) > 0;
-            }
-        }else result=false;
-        return result;
+            cv.put(DBWordsContract.DBWordEntry.COLUMN_STATISTIC, ++old);
+            return mDb.update(
+                    DBWordsContract.DBWordEntry.TABLE_NAME,
+                    cv,
+                    DBWordsContract.DBWordEntry._ID + "=" + id, null) > 0;
+        }
+        return false;
     }
 }
