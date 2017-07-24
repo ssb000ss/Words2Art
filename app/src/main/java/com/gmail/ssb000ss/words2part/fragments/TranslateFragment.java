@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
     private TextView translate;
     private ImageButton btn_add_word, btn_clear_text,btn_done;
     private Animation anim_word_add;
+    private ProgressBar progressBar;
 
 
 
@@ -101,6 +103,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
         btn_add_word.setOnClickListener(this);
         btn_done.setOnClickListener(this);
 
+        progressBar=(ProgressBar) view.findViewById(R.id.pb_translation);
     }
 
     @Override
@@ -119,17 +122,18 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
                 clearTexts();
                 break;
             case R.id.btn_translate_done:
-                final String[] resulttext = {""};
                 RequestQueue queue= Volley.newRequestQueue(getContext());
-                final ObjectMapper objectMapper=new ObjectMapper();
                 String URL=url+word.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
                 JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET,URL,null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+
                             JSONArray array=response.getJSONArray(WordConstants.KEY_TUC);
                             JSONObject tuc= (JSONObject) array.get(0);
                             JSONObject phrase=tuc.getJSONObject(WordConstants.KEY_PHRASE);
+                            progressBar.setVisibility(View.INVISIBLE);
                             translate.setText(phrase.getString(WordConstants.KEY_TEXT));
                         } catch (JSONException e) {
                             e.printStackTrace();
