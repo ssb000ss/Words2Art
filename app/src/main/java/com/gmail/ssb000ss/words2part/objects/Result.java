@@ -1,100 +1,77 @@
-
 package com.gmail.ssb000ss.words2part.objects;
 
-import java.util.HashMap;
+import com.gmail.ssb000ss.words2part.WordConstants;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "result",
-    "tuc",
-    "phrase",
-    "from",
-    "dest",
-    "authors"
-})
+/**
+ * Created by ssb000ss on 24.07.2017.
+ */
+
 public class Result {
+    private String from="";
+    private String dest="";
+    private String phrase="";
+    private List<Tuc> tucs;
 
-    @JsonProperty("result")
-    private String result;
-    @JsonProperty("tuc")
-    private List<Tuc> tuc = null;
-    @JsonProperty("phrase")
-    private String phrase;
-    @JsonProperty("from")
-    private String from;
-    @JsonProperty("dest")
-    private String dest;
 
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    @JsonProperty("result")
-    public String getResult() {
-        return result;
+    public Result(JSONObject object)  {
+        try {
+            this.from = object.getString(WordConstants.KEY_FROM);
+            this.dest = object.getString(WordConstants.KEY_DEST);
+            this.phrase = object.getString(WordConstants.KEY_PHRASE);
+            setTucs(object.getJSONArray(WordConstants.KEY_TUC));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    @JsonProperty("result")
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    @JsonProperty("tuc")
-    public List<Tuc> getTuc() {
-        return tuc;
-    }
-
-    @JsonProperty("tuc")
-    public void setTuc(List<Tuc> tuc) {
-        this.tuc = tuc;
-    }
-
-    @JsonProperty("phrase")
-    public String getPhrase() {
-        return phrase;
-    }
-
-    @JsonProperty("phrase")
-    public void setPhrase(String phrase) {
-        this.phrase = phrase;
-    }
-
-    @JsonProperty("from")
     public String getFrom() {
         return from;
     }
 
-    @JsonProperty("from")
     public void setFrom(String from) {
         this.from = from;
     }
 
-    @JsonProperty("dest")
     public String getDest() {
         return dest;
     }
 
-    @JsonProperty("dest")
     public void setDest(String dest) {
         this.dest = dest;
     }
 
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+    public String getPhrase() {
+        return phrase;
     }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    public void setPhrase(String phrase) {
+        this.phrase = phrase;
     }
 
+    public List<Tuc> getTucs() {
+        return tucs;
+    }
+
+    public void setTucs(List<Tuc> tucs) {
+        this.tucs = tucs;
+    }
+
+    public void setTucs(JSONArray array) {
+        tucs=new ArrayList<>();
+        for (int i = 0; i < array.length(); i++) {
+            try {
+                JSONObject temp= (JSONObject) array.get(i);
+                tucs.add(new Tuc(temp));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

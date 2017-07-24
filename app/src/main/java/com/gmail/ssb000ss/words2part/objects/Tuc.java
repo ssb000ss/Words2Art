@@ -1,84 +1,56 @@
-
 package com.gmail.ssb000ss.words2part.objects;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.gmail.ssb000ss.words2part.WordConstants;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "phrase",
-    "meanings",
-    "meaningId",
-    "authors"
-})
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by ssb000ss on 24.07.2017.
+ */
+
 public class Tuc {
 
-    @JsonProperty("phrase")
     private Phrase phrase;
-    @JsonProperty("meanings")
-    private List<Meaning> meanings = null;
-    @JsonProperty("meaningId")
-    private Object meaningId;
-    @JsonProperty("authors")
-    private List<Integer> authors = null;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private List<Meaning> meanings;
 
-    @JsonProperty("phrase")
+    public Tuc(JSONObject object) throws JSONException {
+        this.phrase = new Phrase(object.getJSONObject(WordConstants.KEY_PHRASE));
+        setMeanings(object.getJSONArray(WordConstants.KEY_MEANINGS));
+    }
+
+    public void setMeanings(JSONArray array) {
+        this.meanings=new ArrayList<>();
+        if(array.length()!=0) {
+            for (int i = 0; i < array.length(); i++) {
+                try {
+                    JSONObject temp=(JSONObject) array.get(i);
+                    this.meanings.add(new Meaning(temp));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else this.meanings=new ArrayList<>();
+    }
+
     public Phrase getPhrase() {
         return phrase;
     }
 
-    @JsonProperty("phrase")
     public void setPhrase(Phrase phrase) {
         this.phrase = phrase;
     }
 
-    @JsonProperty("meanings")
     public List<Meaning> getMeanings() {
         return meanings;
     }
 
-    @JsonProperty("meanings")
     public void setMeanings(List<Meaning> meanings) {
         this.meanings = meanings;
     }
-
-    @JsonProperty("meaningId")
-    public Object getMeaningId() {
-        return meaningId;
-    }
-
-    @JsonProperty("meaningId")
-    public void setMeaningId(Object meaningId) {
-        this.meaningId = meaningId;
-    }
-
-    @JsonProperty("authors")
-    public List<Integer> getAuthors() {
-        return authors;
-    }
-
-    @JsonProperty("authors")
-    public void setAuthors(List<Integer> authors) {
-        this.authors = authors;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
 }

@@ -49,12 +49,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:layout_marginBottom="4dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="56dp"
                 android:background="@drawable/ic_add_word"
                 android:visibility="invisible"
                 tools:visibility="visible" />
             <!--todo надо исправить чтобы запрос делался автоматический-->
             <ImageButton
+
                 android:id="@+id/btn_translate_done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +87,8 @@
                     android:id="@+id/tv_translate_translation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Word"
+                    tools:text="Word"
+                    android:inputType="textNoSuggestions"
                     android:textSize="18sp" />
             </ScrollView>
         </LinearLayout>

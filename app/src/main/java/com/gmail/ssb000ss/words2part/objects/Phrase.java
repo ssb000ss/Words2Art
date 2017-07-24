@@ -1,57 +1,44 @@
-
 package com.gmail.ssb000ss.words2part.objects;
 
-import java.util.HashMap;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "text",
-    "language"
-})
+import static com.gmail.ssb000ss.words2part.WordConstants.KEY_LANGUAGE;
+import static com.gmail.ssb000ss.words2part.WordConstants.KEY_TEXT;
+
+/**
+ * Created by ssb000ss on 24.07.2017.
+ */
+
 public class Phrase {
 
-    @JsonProperty("text")
-    private String text;
-    @JsonProperty("language")
-    private String language;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private String language="";
+    private String text="";
 
-    @JsonProperty("text")
-    public String getText() {
-        return text;
+    public Phrase(JSONObject object)  {
+        try {
+            this.language = object.getString(KEY_LANGUAGE);
+            this.text = object.getString(KEY_TEXT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    @JsonProperty("text")
-    public void setText(String text) {
-        this.text = text;
-    }
 
-    @JsonProperty("language")
     public String getLanguage() {
         return language;
     }
 
-    @JsonProperty("language")
     public void setLanguage(String language) {
         this.language = language;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+    public String getText() {
+        return text;
     }
 
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    public void setText(String text) {
+        this.text = text;
     }
-
 }
