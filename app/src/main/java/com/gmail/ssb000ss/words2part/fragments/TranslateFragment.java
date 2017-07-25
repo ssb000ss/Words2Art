@@ -1,6 +1,7 @@
 package com.gmail.ssb000ss.words2part.fragments;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -13,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +36,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by ssb000ss on 11.07.2017.
  */
@@ -53,6 +58,8 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
     private ImageButton btn_add_word, btn_clear_text,btn_done;
     private Animation anim_word_add;
     private ProgressBar progressBar;
+    private LinearLayout lt_error_connection;
+
 
 
 
@@ -74,7 +81,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                showButtons(View.VISIBLE);
+                if(s.length()>=1)showButtons(View.VISIBLE);
             }
 
             @Override
@@ -87,13 +94,41 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
             @Override
             public void afterTextChanged(Editable s) {
 
-            }
+                    if (s.length() > 1) {
+                        RequestQueue queue = Volley.newRequestQueue(getContext());
+                        String URL = url + s.toString();
+                        progressBar.setVisibility(View.VISIBLE);
+
+                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    JSONArray array = response.getJSONArray(WordConstants.KEY_TUC);
+                                    JSONObject tuc = (JSONObject) array.get(0);
+                                    JSONObject phrase = tuc.getJSONObject(WordConstants.KEY_PHRASE);
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    translate.setText(phrase.getString(WordConstants.KEY_TEXT));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                lt_error_connection.setVisibility(View.VISIBLE);
+                            }
+                        });
+                        queue.add(request);
+                    }
+                }
         };
     }
 
     private void initViews(View view) {
         word = (EditText) view.findViewById(R.id.et_translate_word);
         translate = (TextView) view.findViewById(R.id.tv_translate_translation);
+
+        lt_error_connection=(LinearLayout) view.findViewById(R.id.lt_connection_error);
 
         btn_add_word = (ImageButton) view.findViewById(R.id.btn_translate_add_word);
         btn_clear_text = (ImageButton) view.findViewById(R.id.btn_translate_clear_text);
