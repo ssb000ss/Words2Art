@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gmail.ssb000ss.objects.Word;
 import com.gmail.ssb000ss.words2part.R;
@@ -50,6 +51,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         list = newlist;
         if (list != null) {
             this.notifyDataSetChanged();
+            Toast.makeText(context,""+list.size(),Toast.LENGTH_SHORT).show();
         }
     }
 

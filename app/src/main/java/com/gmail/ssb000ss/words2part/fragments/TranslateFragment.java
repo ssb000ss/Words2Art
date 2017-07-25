@@ -1,12 +1,10 @@
 package com.gmail.ssb000ss.words2part.fragments;
 
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,19 +23,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.ssb000ss.words2part.R;
 import com.gmail.ssb000ss.words2part.WordConstants;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
-import com.gmail.ssb000ss.words2part.objects.Result;
-import com.gmail.ssb000ss.words2part.objects.Tuc;
+import com.gmail.ssb000ss.words2part.translate.TranslationGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by ssb000ss on 11.07.2017.
@@ -47,7 +40,6 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
 
     private DAOwordsImpls impls;
 
-    String url = "https://glosbe.com/gapi/translate?from=eng&dest=rus&format=json&phrase=";
 
     public TranslateFragment(DAOwordsImpls impls) {
         this.impls = impls;
@@ -55,12 +47,10 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
 
     private EditText word;
     private TextView translate;
-    private ImageButton btn_add_word, btn_clear_text,btn_done;
+    private ImageButton btn_add_word, btn_clear_text, btn_done;
     private Animation anim_word_add;
     private ProgressBar progressBar;
     private LinearLayout lt_error_connection;
-
-
 
 
     @Override
@@ -81,7 +71,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(s.length()>=1)showButtons(View.VISIBLE);
+                if (s.length() >= 1) showButtons(View.VISIBLE);
             }
 
             @Override
@@ -93,34 +83,31 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (s.length() > 1) {
+                    RequestQueue queue = Volley.newRequestQueue(getContext());
+                    progressBar.setVisibility(View.VISIBLE);
 
-                    if (s.length() > 1) {
-                        RequestQueue queue = Volley.newRequestQueue(getContext());
-                        String URL = url + s.toString();
-                        progressBar.setVisibility(View.VISIBLE);
-
-                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    JSONArray array = response.getJSONArray(WordConstants.KEY_TUC);
-                                    JSONObject tuc = (JSONObject) array.get(0);
-                                    JSONObject phrase = tuc.getJSONObject(WordConstants.KEY_PHRASE);
+                    JsonObjectRequest request = new JsonObjectRequest(
+                            Request.Method.GET,
+                            composeUrl(word.getText().toString()),
+                            null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    TranslationGroup group=new TranslationGroup(response);
+                                    translate.setText(group.getFirstAvailablePhrase());
                                     progressBar.setVisibility(View.INVISIBLE);
-                                    translate.setText(phrase.getString(WordConstants.KEY_TEXT));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
                                 }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                lt_error_connection.setVisibility(View.VISIBLE);
-                            }
-                        });
-                        queue.add(request);
-                    }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    lt_error_connection.setVisibility(View.VISIBLE);
+                                }
+                            });
+                    queue.add(request);
                 }
+            }
         };
     }
 
@@ -128,17 +115,14 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
         word = (EditText) view.findViewById(R.id.et_translate_word);
         translate = (TextView) view.findViewById(R.id.tv_translate_translation);
 
-        lt_error_connection=(LinearLayout) view.findViewById(R.id.lt_connection_error);
+        lt_error_connection = (LinearLayout) view.findViewById(R.id.lt_connection_error);
 
         btn_add_word = (ImageButton) view.findViewById(R.id.btn_translate_add_word);
         btn_clear_text = (ImageButton) view.findViewById(R.id.btn_translate_clear_text);
-        btn_done=(ImageButton)view.findViewById(R.id.btn_translate_done);
 
         btn_clear_text.setOnClickListener(this);
         btn_add_word.setOnClickListener(this);
-        btn_done.setOnClickListener(this);
-
-        progressBar=(ProgressBar) view.findViewById(R.id.pb_translation);
+        progressBar = (ProgressBar) view.findViewById(R.id.pb_translation);
     }
 
     @Override
@@ -156,32 +140,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
             case R.id.btn_translate_clear_text:
                 clearTexts();
                 break;
-            case R.id.btn_translate_done:
-                RequestQueue queue= Volley.newRequestQueue(getContext());
-                String URL=url+word.getText().toString();
-                progressBar.setVisibility(View.VISIBLE);
-                JsonObjectRequest request=new JsonObjectRequest(Request.Method.GET,URL,null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
 
-                            JSONArray array=response.getJSONArray(WordConstants.KEY_TUC);
-                            JSONObject tuc= (JSONObject) array.get(0);
-                            JSONObject phrase=tuc.getJSONObject(WordConstants.KEY_PHRASE);
-                            progressBar.setVisibility(View.INVISIBLE);
-                            translate.setText(phrase.getString(WordConstants.KEY_TEXT));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(),"error",Toast.LENGTH_SHORT).show();
-                    }
-                });
-                queue.add(request);
-                break;
         }
     }
 
@@ -191,8 +150,11 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
     }
 
     private void showButtons(int visibility) {
-        btn_done.setVisibility(visibility);
         btn_add_word.setVisibility(visibility);
         btn_clear_text.setVisibility(visibility);
+    }
+
+    private String composeUrl(String phrase) {
+        return WordConstants.BASE_URL + phrase.toLowerCase();
     }
 }

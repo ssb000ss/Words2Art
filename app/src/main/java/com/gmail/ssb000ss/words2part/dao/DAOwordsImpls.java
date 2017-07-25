@@ -64,11 +64,9 @@ public class DAOwordsImpls {
 
 
     public boolean deleteWord(long id) {
-        String temp=dbWords.getWordById(id).getWord();
         if(dbWords.deleteWord(id)){
             try {
                 list.deleteWord(id);
-                Toast.makeText(context,"Слово "+temp+" удалено",Toast.LENGTH_SHORT).show();
             } catch (WordException e) {
                 e.printStackTrace();
             }
