@@ -82,8 +82,9 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public TestFragment(DAOwordsImpls words) {
-        this.words = words;
+    public TestFragment(MainActivity context) {
+        this.context = context;
+        words=new DAOwordsImpls(context);
     }
 
     public TestFragment(DAOwordsImpls words, MainActivity context) {
@@ -96,7 +97,6 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_test, container, false);
-
         size = list.getAll().size();
         Log.d(TAG, "onCreateView: ");
         initAnim();

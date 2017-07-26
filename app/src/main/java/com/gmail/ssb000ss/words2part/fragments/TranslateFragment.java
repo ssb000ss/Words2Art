@@ -32,6 +32,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by ssb000ss on 11.07.2017.
  */
@@ -81,35 +84,45 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
                 }
             }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 1) {
-                    RequestQueue queue = Volley.newRequestQueue(getContext());
-                    progressBar.setVisibility(View.VISIBLE);
+            private Timer timer = new Timer();
 
-                    JsonObjectRequest request = new JsonObjectRequest(
-                            Request.Method.GET,
-                            composeUrl(word.getText().toString()),
-                            null,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    TranslationGroup group=new TranslationGroup(response);
-                                    translate.setText(group.getFirstAvailablePhrase());
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    lt_error_connection.setVisibility(View.VISIBLE);
-                                }
-                            });
-                    queue.add(request);
-                }
+            @Override
+            public void afterTextChanged(final Editable s) {
+                //todo добавить функционал отображения pregressbar
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                            RequestQueue queue = Volley.newRequestQueue(getContext());
+                            //showProgressBar(View.VISIBLE);
+                            JsonObjectRequest request = new JsonObjectRequest(
+                                    Request.Method.GET,
+                                    composeUrl(word.getText().toString()),
+                                    null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            TranslationGroup group = new TranslationGroup(response);
+                                            translate.setText(group.getFirstAvailablePhrase());
+                                            // progressBar.setVisibility(View.INVISIBLE);
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            lt_error_connection.setVisibility(View.VISIBLE);
+                                        }
+                                    });
+                            queue.add(request);
+                    }
+                },
+                        WordConstants.DELAY);
+
             }
         };
     }
+
 
     private void initViews(View view) {
         word = (EditText) view.findViewById(R.id.et_translate_word);
@@ -140,7 +153,6 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
             case R.id.btn_translate_clear_text:
                 clearTexts();
                 break;
-
         }
     }
 

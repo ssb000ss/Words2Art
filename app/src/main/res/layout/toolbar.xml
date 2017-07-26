@@ -6,19 +6,36 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
+
         <TextView
-            android:gravity="center"
-            android:textSize="20sp"
-            android:id="@+id/tv_toolbar"
+            android:id="@+id/tv_toolbar_edit_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:text="@string/tv_edit_mode"
             android:textColor="@color/color_title_toolbar"
+            android:visibility="invisible" />
+
+        <TextView
+
+            android:id="@+id/tv_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/color_title_toolbar"
+            android:textSize="20sp"
             tool:text="Dictionary" />
-    </LinearLayout>
 
-
+        <Switch
+            android:id="@+id/sw_toolbar_edit_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="8dp"
+            android:visibility="gone" />
+    </FrameLayout>
 </android.support.v7.widget.Toolbar>

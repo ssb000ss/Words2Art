@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
@@ -19,9 +20,12 @@ import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
 public class MainActivity extends FragmentActivity implements TestFragment.TestListener {
 
     public static final String TAG="main";
+
     private Toolbar toolbar;
     private TextView tv_toolbar;
-    Typeface tf_tv_toolbar;
+    private TextView tv_toolbar_edit_mode;
+    private Switch sw_toolbar;
+    private Typeface tf_tv_toolbar;
 
     private DictionaryFragment dictionaryFragment;
     private TranslateFragment translateFragment;
@@ -32,29 +36,6 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
 
     BottomNavigationView navigation;
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +44,9 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
 
         toolbar=(Toolbar)findViewById(R.id.test_toolbar);
         tv_toolbar=(TextView)findViewById(R.id.tv_toolbar);
+        tv_toolbar_edit_mode=(TextView)findViewById(R.id.tv_toolbar_edit_mode);
+        sw_toolbar=(Switch) findViewById(R.id.sw_toolbar_edit_mode);
         tf_tv_toolbar=Typeface.createFromAsset(getAssets(), WordConstants.Fonts.Roboto_medium);
-
         words = new DAOwordsImpls(this);
 
 
@@ -72,7 +54,7 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
         //Запустим один раз
         //TestUtils.insertTestWord(words.getDatabase());
 
-        dictionaryFragment = new DictionaryFragment(words);
+        dictionaryFragment = new DictionaryFragment(words,sw_toolbar,tv_toolbar_edit_mode);
         translateFragment = new TranslateFragment(words);
 
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
@@ -111,7 +93,7 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
     };
 
     private void initTestFragment() {
-        testFragment = new TestFragment(words,this);
+        testFragment = new TestFragment(this);
         initTitleToolBar("Test");
         ft.replace(R.id.content, testFragment);
         ft.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);

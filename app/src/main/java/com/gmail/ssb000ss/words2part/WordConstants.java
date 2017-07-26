@@ -16,6 +16,8 @@ public class WordConstants {
     public static final String KEY_DEST = "dest";
     public static final String KEY_TUC = "tuc";
 
+    public static final long DELAY = 350;
+
     public static final String BASE_URL="https://glosbe.com/gapi/translate?from=eng&dest=rus&format=json&phrase=";
 
     public static final class Fonts {
