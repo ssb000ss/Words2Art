@@ -14,7 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.gmail.ssb000ss.words2part.R;
-import com.gmail.ssb000ss.words2part.WordConstants;
+import com.gmail.ssb000ss.words2part.Constants;
 import com.gmail.ssb000ss.words2part.adapters.WordAdapter;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 
@@ -87,7 +87,7 @@ public class DictionaryFragment extends Fragment implements WordAdapter.WordAdap
     private void initViews(View v) {
         tv_is_empty = (TextView) v.findViewById(R.id.tv_db_is_empty);
         lt_dictionary_error = (LinearLayout) v.findViewById(R.id.lt_dictionary_error);
-        Typeface tf_lbl = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_regular);
+        Typeface tf_lbl = Typeface.createFromAsset(getContext().getAssets(), Constants.Fonts.Roboto_regular);
         tv_is_empty.setTypeface(tf_lbl);
     }
 

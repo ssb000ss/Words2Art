@@ -4,7 +4,7 @@ package com.gmail.ssb000ss.words2part;
  * Created by gENERATION on 11.07.2017.
  */
 
-public class WordConstants {
+public class Constants {
 
     public static final int MEMORIZATION_LEVEL = 4;
 

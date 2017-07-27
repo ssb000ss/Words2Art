@@ -6,13 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
-import com.gmail.ssb000ss.words2part.db.TestUtils;
 import com.gmail.ssb000ss.words2part.fragments.DictionaryFragment;
 import com.gmail.ssb000ss.words2part.fragments.TestFragment;
 import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
@@ -40,13 +38,14 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.main);
 
         toolbar=(Toolbar)findViewById(R.id.test_toolbar);
         tv_toolbar=(TextView)findViewById(R.id.tv_toolbar);
         tv_toolbar_edit_mode=(TextView)findViewById(R.id.tv_toolbar_edit_mode);
         sw_toolbar=(Switch) findViewById(R.id.sw_toolbar_edit_mode);
-        tf_tv_toolbar=Typeface.createFromAsset(getAssets(), WordConstants.Fonts.Roboto_medium);
+        tf_tv_toolbar=Typeface.createFromAsset(getAssets(), Constants.Fonts.Roboto_medium);
         words = new DAOwordsImpls(this);
 
 
@@ -58,6 +57,7 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
         translateFragment = new TranslateFragment(words);
 
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+        initTitleToolBar("Translate");
         ft1.replace(R.id.content, translateFragment);
         ft1.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft1.commit();

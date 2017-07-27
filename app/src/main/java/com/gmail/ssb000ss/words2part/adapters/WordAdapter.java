@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.gmail.ssb000ss.objects.Word;
 import com.gmail.ssb000ss.words2part.R;
-import com.gmail.ssb000ss.words2part.WordConstants;
+import com.gmail.ssb000ss.words2part.Constants;
 import com.gmail.ssb000ss.words2part.fragments.DictionaryFragment;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
 
     @Override
     public WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.word_item_with_statistic, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.word_item, parent, false);
         return new WordViewHolder(v);
     }
 
@@ -53,7 +53,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         Word tempWord = list.get(position);
         holder.tv_word.setText(tempWord.getWord());
         holder.tv_translation.setText(tempWord.getTranslation());
-        holder.tv_statistic.setText(tempWord.getStatistic() * 100 / WordConstants.MEMORIZATION_LEVEL + "%");
+        holder.tv_statistic.setText(tempWord.getStatistic() * 100 / Constants.MEMORIZATION_LEVEL + "%");
         holder.itemView.setTag(tempWord.getId());
         setEditMode(isChecked,holder);
     }

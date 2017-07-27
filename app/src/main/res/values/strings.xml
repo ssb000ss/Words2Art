@@ -9,7 +9,8 @@
     <string name="tv_test_error">Для полноценного теста не хватает слов… \nТы давай, не халявничай!</string>
     <string name="btn_test_result">Далее</string>
     <string name="test_result_dep">Если долго мучиться, \n что нибудь получиться</string>
-    <string name="tv_connection_error">В горах живешь что ли,\n Интернета то НЕМА!</string>
+    <string name="tv_connection_error">Отсутсвует подключение к сети,\n Раз,два,три - ИНТЕРНЕТ гори!</string>
     <string name="et_tranlate_word">Введите слово или текст</string>
     <string name="tv_edit_mode">Edit mode</string>
+    <string name="no_translation_available">No Translation Available</string>
 </resources>

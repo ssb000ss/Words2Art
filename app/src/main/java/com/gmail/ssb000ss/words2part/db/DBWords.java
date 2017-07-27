@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.gmail.ssb000ss.objects.Word;
-import com.gmail.ssb000ss.words2part.WordConstants;
 
 import java.util.ArrayList;
 

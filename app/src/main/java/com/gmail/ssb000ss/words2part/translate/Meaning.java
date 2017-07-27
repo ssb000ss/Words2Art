@@ -9,7 +9,8 @@ public class Meaning {
 		this.text = text;
 		this.lang = language;
 	}
-	
-	
-	
+
+    public String getText() {
+        return text;
+    }
 }

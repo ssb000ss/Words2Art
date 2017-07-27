@@ -2,14 +2,13 @@ package com.gmail.ssb000ss.words2part.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.gmail.ssb000ss.exceptions.WordException;
 import com.gmail.ssb000ss.objects.Word;
 import com.gmail.ssb000ss.objects.WordList;
-import com.gmail.ssb000ss.words2part.WordConstants;
+import com.gmail.ssb000ss.words2part.Constants;
 import com.gmail.ssb000ss.words2part.db.DBWords;
 import com.gmail.ssb000ss.words2part.db.DBWordsHelper;
 
@@ -81,7 +80,7 @@ public class DAOwordsImpls {
     public boolean upCount(long id) throws WordException {
         if(dbWords.upCount(id)){
             list.upCount(id);
-            if(dbWords.getWordById(id).getStatistic()== WordConstants.MEMORIZATION_LEVEL){
+            if(dbWords.getWordById(id).getStatistic()== Constants.MEMORIZATION_LEVEL){
                 Log.d("upcount", "удалили "+dbWords.getWordById(id).getWord());
                 deleteWord(id);
 

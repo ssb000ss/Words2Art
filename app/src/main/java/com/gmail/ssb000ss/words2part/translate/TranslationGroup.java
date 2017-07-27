@@ -1,6 +1,6 @@
 package com.gmail.ssb000ss.words2part.translate;
 
-import com.gmail.ssb000ss.words2part.WordConstants;
+import com.gmail.ssb000ss.words2part.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,9 +20,9 @@ public class TranslationGroup {
     public TranslationGroup(JSONObject jsonObject) {
         this.jsonObject = jsonObject;
         try {
-            this.originalphrase = (String) jsonObject.get(WordConstants.KEY_PHRASE);
-            this.originalLanguage = (String) jsonObject.get(WordConstants.KEY_FROM);
-            this.destinationLanguage = (String) jsonObject.get(WordConstants.KEY_DEST);
+            this.originalphrase = (String) jsonObject.get(Constants.KEY_PHRASE);
+            this.originalLanguage = (String) jsonObject.get(Constants.KEY_FROM);
+            this.destinationLanguage = (String) jsonObject.get(Constants.KEY_DEST);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -65,29 +65,29 @@ public class TranslationGroup {
             return;
         }
         try {
-            JSONArray tuc = (JSONArray) this.jsonObject.get(WordConstants.KEY_TUC);
+            JSONArray tuc = (JSONArray) this.jsonObject.get(Constants.KEY_TUC);
             for (int i = 0; i < tuc.length(); i++) {
 
                 JSONObject transJSON = (JSONObject) tuc.get(i);
 
-                if (transJSON.has(WordConstants.KEY_PHRASE) && transJSON.has(WordConstants.KEY_MEANINGS)) {
+                if (transJSON.has(Constants.KEY_PHRASE) && transJSON.has(Constants.KEY_MEANINGS)) {
                     Translation transt = new Translation();
 
                     // get meanings
-                    JSONArray meanings = (JSONArray) transJSON.get(WordConstants.KEY_MEANINGS);
+                    JSONArray meanings = (JSONArray) transJSON.get(Constants.KEY_MEANINGS);
                     for (int j = 0; j < meanings.length(); j++) {
                         JSONObject mm = (JSONObject) meanings.get(j);
 
-                        String meaningText = (String) mm.get(WordConstants.KEY_TEXT);
-                        String meaningLang = (String) mm.get(WordConstants.KEY_LANGUAGE);
+                        String meaningText = (String) mm.get(Constants.KEY_TEXT);
+                        String meaningLang = (String) mm.get(Constants.KEY_LANGUAGE);
 
                         transt.meanings.add(new Meaning(meaningText, meaningLang));
                     }
 
                     // get phrases
-                    JSONObject phraseJSON = (JSONObject) transJSON.get(WordConstants.KEY_PHRASE);
-                    String text = (String) phraseJSON.get(WordConstants.KEY_TEXT);
-                    String lang = (String) phraseJSON.get(WordConstants.KEY_LANGUAGE);
+                    JSONObject phraseJSON = (JSONObject) transJSON.get(Constants.KEY_PHRASE);
+                    String text = (String) phraseJSON.get(Constants.KEY_TEXT);
+                    String lang = (String) phraseJSON.get(Constants.KEY_LANGUAGE);
                     Phrase phrase = new Phrase(text, lang);
                     transt.addPhrase(phrase);
                     this.translations.add(transt);

@@ -21,7 +21,7 @@ import com.gmail.ssb000ss.objects.WordList;
 import com.gmail.ssb000ss.utils.QuestionManager;
 import com.gmail.ssb000ss.words2part.MainActivity;
 import com.gmail.ssb000ss.words2part.R;
-import com.gmail.ssb000ss.words2part.WordConstants;
+import com.gmail.ssb000ss.words2part.Constants;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 
 import java.util.List;
@@ -163,8 +163,8 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initViews(View view) {
-        tf_roboto_regular = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Roboto_regular);
-        tf_question = Typeface.createFromAsset(getContext().getAssets(), WordConstants.Fonts.Montserrat_medium);
+        tf_roboto_regular = Typeface.createFromAsset(getContext().getAssets(), Constants.Fonts.Roboto_regular);
+        tf_question = Typeface.createFromAsset(getContext().getAssets(), Constants.Fonts.Montserrat_medium);
 
         tv_question = (TextView) view.findViewById(R.id.tv_question);
         tv_test_empty_words = (TextView) view.findViewById(R.id.tv_test_empty_word);

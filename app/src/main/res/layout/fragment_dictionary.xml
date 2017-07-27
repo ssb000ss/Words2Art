@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <!--Todo здесь реализовать поиск слов, в меню как и было задуманно изначально-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_words"
         android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package com.gmail.ssb000ss.words2part.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,12 +24,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.gmail.ssb000ss.words2part.R;
-import com.gmail.ssb000ss.words2part.WordConstants;
+import com.gmail.ssb000ss.words2part.Constants;
+import com.gmail.ssb000ss.words2part.adapters.TranslationAdapter;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 import com.gmail.ssb000ss.words2part.translate.TranslationGroup;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Timer;
@@ -50,10 +49,11 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
 
     private EditText word;
     private TextView translate;
-    private ImageButton btn_add_word, btn_clear_text, btn_done;
+    private ImageButton btn_add_word, btn_clear_text;
     private Animation anim_word_add;
     private ProgressBar progressBar;
     private LinearLayout lt_error_connection;
+    private RecyclerView rv_translation;
 
 
     @Override
@@ -105,6 +105,9 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
                                         public void onResponse(JSONObject response) {
                                             TranslationGroup group = new TranslationGroup(response);
                                             translate.setText(group.getFirstAvailablePhrase());
+                                            TranslationAdapter adapter=new TranslationAdapter(group.getTranslations());
+                                            rv_translation.setAdapter(adapter);
+                                            rv_translation.hasFixedSize();
                                             // progressBar.setVisibility(View.INVISIBLE);
                                         }
                                     },
@@ -117,7 +120,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
                             queue.add(request);
                     }
                 },
-                        WordConstants.DELAY);
+                        Constants.DELAY);
 
             }
         };
@@ -127,6 +130,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
     private void initViews(View view) {
         word = (EditText) view.findViewById(R.id.et_translate_word);
         translate = (TextView) view.findViewById(R.id.tv_translate_translation);
+        rv_translation=(RecyclerView)view.findViewById(R.id.rv_translation);
 
         lt_error_connection = (LinearLayout) view.findViewById(R.id.lt_connection_error);
 
@@ -167,6 +171,6 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
     }
 
     private String composeUrl(String phrase) {
-        return WordConstants.BASE_URL + phrase.toLowerCase();
+        return Constants.BASE_URL + phrase.toLowerCase();
     }
 }

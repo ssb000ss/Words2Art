@@ -79,48 +79,21 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_translate_translation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:inputType="textNoSuggestions"
-                android:text="@string/no_translation_available"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tv_translate_translation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="textNoSuggestions"
+                    android:text="@string/no_translation_available"
+                    android:textSize="18sp" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_translation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lt_connection_error"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fdfdfd"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:visibility="invisible">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_connection_error" />
-
-            <TextView
-                android:id="@+id/tv_connection_error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="@string/tv_connection_error"
-                android:textColor="#CACACA"
-                android:textSize="16sp" />
+                android:id="@+id/rv_translation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
