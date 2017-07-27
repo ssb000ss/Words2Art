@@ -49,7 +49,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
 
     private EditText word;
     private TextView translate;
-    private ImageButton btn_add_word, btn_clear_text;
+    private ImageButton btn_add_word, btn_clear_text,btn_add_success;
     private Animation anim_word_add;
     private ProgressBar progressBar;
     private LinearLayout lt_error_connection;
@@ -136,6 +136,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
 
         btn_add_word = (ImageButton) view.findViewById(R.id.btn_translate_add_word);
         btn_clear_text = (ImageButton) view.findViewById(R.id.btn_translate_clear_text);
+        btn_add_success = (ImageButton) view.findViewById(R.id.btn_translate_add_success);
 
         btn_clear_text.setOnClickListener(this);
         btn_add_word.setOnClickListener(this);
@@ -151,7 +152,8 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
                 if (!(w.isEmpty() && t.isEmpty())) {
                     impls.addWord(w, t);
                     word.startAnimation(anim_word_add);
-                    clearTexts();
+                    btn_add_word.setVisibility(View.GONE);
+                    btn_add_success.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.btn_translate_clear_text:
@@ -163,6 +165,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
     private void clearTexts() {
         word.setText("");
         translate.setText("");
+        btn_add_success.setVisibility(View.GONE);
     }
 
     private void showButtons(int visibility) {

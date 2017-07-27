@@ -22,10 +22,10 @@ import java.util.List;
 
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
 
-    Context context;
-    List<Word> list;
-    WordAdapterListener adapterListener;
-    boolean isChecked=false;
+    private Context context;
+    private List<Word> list;
+    private WordAdapterListener adapterListener;
+    private boolean isChecked=false;
 
     public WordAdapter(Context context, List<Word> list, DictionaryFragment dictionaryFragment) {
         this.context = context;
@@ -34,13 +34,6 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
 
     }
 
-    public WordAdapter(Context context, List<Word> list, DictionaryFragment dictionaryFragment,boolean isChecked) {
-        this.context = context;
-        this.list = list;
-        this.isChecked=isChecked;
-        adapterListener= dictionaryFragment;
-
-    }
 
     @Override
     public WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

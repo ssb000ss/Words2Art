@@ -1,5 +1,6 @@
 package com.gmail.ssb000ss.words2part.fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,12 +27,9 @@ public class DictionaryFragment extends Fragment implements WordAdapter.WordAdap
 
     public final String TAG = getClass().getName();
 
-    public DictionaryFragment(DAOwordsImpls words) {
-        this.words = words;
-    }
 
-    public DictionaryFragment(DAOwordsImpls words,Switch sw,TextView tv) {
-        this.words = words;
+    public DictionaryFragment(Context context,Switch sw, TextView tv) {
+        this.words = new DAOwordsImpls(context);
         this.sw_edit_mode=sw;
         this.tv_toolbar_edit_mode=tv;
     }
@@ -44,13 +42,12 @@ public class DictionaryFragment extends Fragment implements WordAdapter.WordAdap
     WordAdapter adapter;
     DAOwordsImpls words;
 
-    public boolean isCheck=false;
-
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         sw_edit_mode.setVisibility(View.GONE);
+        adapter.notifyDataSetChanged();
         Log.d(TAG, "onDestroyView: ");
     }
 

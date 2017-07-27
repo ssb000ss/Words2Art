@@ -53,7 +53,7 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
         //Запустим один раз
         //TestUtils.insertTestWord(words.getDatabase());
 
-        dictionaryFragment = new DictionaryFragment(words,sw_toolbar,tv_toolbar_edit_mode);
+        dictionaryFragment = new DictionaryFragment(this,sw_toolbar,tv_toolbar_edit_mode);
         translateFragment = new TranslateFragment(words);
 
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
