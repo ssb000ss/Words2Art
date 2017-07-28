@@ -110,7 +110,6 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
             long id=list.get(position).getId();
             deleteItem(position);
             adapterListener.WordAdapterClick(id);
-
         }
        
     }

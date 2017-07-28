@@ -47,6 +47,7 @@ public class DictionaryFragment extends Fragment implements WordAdapter.WordAdap
     public void onDestroyView() {
         super.onDestroyView();
         sw_edit_mode.setVisibility(View.GONE);
+        sw_edit_mode.setChecked(false);
         adapter.notifyDataSetChanged();
         Log.d(TAG, "onDestroyView: ");
     }
@@ -57,6 +58,9 @@ public class DictionaryFragment extends Fragment implements WordAdapter.WordAdap
         initViews(v);
         dbIsEmpty();
         sw_edit_mode.setVisibility(View.VISIBLE);
+        adapter = new WordAdapter(getContext(), words.getList().getAll(), this);
+        recyclerView = (RecyclerView) v.findViewById(R.id.rv_words);
+        recyclerView.setAdapter(adapter);
         sw_edit_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -66,9 +70,6 @@ public class DictionaryFragment extends Fragment implements WordAdapter.WordAdap
                 adapter.notifyDataSetChanged();
             }
         });
-        adapter = new WordAdapter(getContext(), words.getList().getAll(), this);
-        recyclerView = (RecyclerView) v.findViewById(R.id.rv_words);
-        recyclerView.setAdapter(adapter);
         return v;
     }
 

@@ -149,11 +149,12 @@ public class TranslateFragment extends Fragment implements View.OnClickListener 
             case R.id.btn_translate_add_word:
                 String w = word.getText().toString();
                 String t = translate.getText().toString();
-                if (!(w.isEmpty() && t.isEmpty())) {
+                if (!(w.isEmpty() & t.isEmpty())) {
                     impls.addWord(w, t);
                     word.startAnimation(anim_word_add);
                     btn_add_word.setVisibility(View.GONE);
                     btn_add_success.setVisibility(View.VISIBLE);
+                    clearTexts();
                 }
                 break;
             case R.id.btn_translate_clear_text:

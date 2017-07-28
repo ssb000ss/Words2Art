@@ -43,9 +43,9 @@ public class DAOwordsImpls {
     public boolean addWord(String word,String translation) {
         long id=dbWords.addWord(word,translation);
         if(id>0){
-            list.addWord(new Word(id,word,translation));
+
             Toast.makeText(context,"Слово "+id+" добалено",Toast.LENGTH_SHORT).show();
-            return true;
+            return list.addWord(new Word(id,word,translation));
         }else return false;
     }
 

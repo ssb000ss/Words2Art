@@ -69,15 +69,12 @@ public class WordList {
     }
 
     public boolean addWord(Word word) {
-        return wordList.add(word) || idList.add(word.getId());
+        return wordList.add(word) && idList.add(word.getId());
     }
 
-    public boolean deleteWord(Word word) {
-        return wordList.remove(word) || idList.remove(word.getId());
-    }
 
     public boolean deleteWord(long id) throws WordException {
-        return wordList.remove(this.getWordById(id)) || idList.remove(id);
+        return wordList.remove(this.getWordById(id)) && idList.remove(id);
     }
 
     public boolean updateWord(long id, String newWord, String newTranslation) throws WordException {
