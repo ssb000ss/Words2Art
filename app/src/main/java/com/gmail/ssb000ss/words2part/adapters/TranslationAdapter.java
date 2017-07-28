@@ -24,10 +24,14 @@ import java.util.List;
 
 public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.TranslationViewHolder>{
 
-    List<Translation> list=new ArrayList<>();
+    private List<Translation> list=new ArrayList<>();
 
     public TranslationAdapter(List<Translation> list) {
         this.list = list;
+    }
+
+    public TranslationAdapter(ArrayList<Translation> objects) {
+        list=objects;
     }
 
     @Override

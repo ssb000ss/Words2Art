@@ -3,6 +3,7 @@ package com.gmail.ssb000ss.words2part.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.gmail.ssb000ss.exceptions.WordException;
@@ -43,8 +44,9 @@ public class DAOwordsImpls {
     public boolean addWord(String word,String translation) {
         long id=dbWords.addWord(word,translation);
         if(id>0){
-
-            Toast.makeText(context,"Слово "+id+" добалено",Toast.LENGTH_SHORT).show();
+            Toast toast=Toast.makeText(context,"Добавлено",Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP,0,200);
+            toast.show();
             return list.addWord(new Word(id,word,translation));
         }else return false;
     }

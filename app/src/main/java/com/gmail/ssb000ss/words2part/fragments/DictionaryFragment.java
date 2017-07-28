@@ -28,8 +28,8 @@ public class DictionaryFragment extends Fragment implements WordAdapter.WordAdap
     public final String TAG = getClass().getName();
 
 
-    public DictionaryFragment(Context context,Switch sw, TextView tv) {
-        this.words = new DAOwordsImpls(context);
+    public DictionaryFragment(Context context,DAOwordsImpls words,Switch sw, TextView tv) {
+        this.words = words;
         this.sw_edit_mode=sw;
         this.tv_toolbar_edit_mode=tv;
     }

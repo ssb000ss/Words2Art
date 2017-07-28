@@ -11,6 +11,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
+import com.gmail.ssb000ss.words2part.db.TestUtils;
 import com.gmail.ssb000ss.words2part.fragments.DictionaryFragment;
 import com.gmail.ssb000ss.words2part.fragments.TestFragment;
 import com.gmail.ssb000ss.words2part.fragments.TranslateFragment;
@@ -50,11 +51,9 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
 
 
 
-        //Запустим один раз
-        //TestUtils.insertTestWord(words.getDatabase());
 
-        dictionaryFragment = new DictionaryFragment(this,sw_toolbar,tv_toolbar_edit_mode);
         translateFragment = new TranslateFragment(words);
+        dictionaryFragment = new DictionaryFragment(this,words,sw_toolbar,tv_toolbar_edit_mode);
 
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         initTitleToolBar("Translate");
@@ -93,7 +92,7 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
     };
 
     private void initTestFragment() {
-        testFragment = new TestFragment(this);
+        testFragment = new TestFragment(this,words);
         initTitleToolBar("Test");
         ft.replace(R.id.content, testFragment);
         ft.setTransition(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);

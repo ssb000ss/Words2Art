@@ -22,6 +22,7 @@ import com.gmail.ssb000ss.utils.QuestionManager;
 import com.gmail.ssb000ss.words2part.MainActivity;
 import com.gmail.ssb000ss.words2part.R;
 import com.gmail.ssb000ss.words2part.Constants;
+import com.gmail.ssb000ss.words2part.dao.DAOwords;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 
 import java.util.List;
@@ -82,9 +83,9 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public TestFragment(MainActivity context) {
+    public TestFragment(MainActivity context, DAOwordsImpls words) {
         this.context = context;
-        words=new DAOwordsImpls(context);
+        this.words=words;
     }
 
     public TestFragment(DAOwordsImpls words, MainActivity context) {
