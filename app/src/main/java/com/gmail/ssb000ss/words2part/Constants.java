@@ -17,9 +17,12 @@ public class Constants {
     public static final String KEY_DEST = "dest";
     public static final String KEY_TUC = "tuc";
 
+    public static final String LANG_RU="rus";
+    public static final String LANG_EN="eng";
+
     public static final long DELAY = 350;
 
-    public static final String BASE_URL="https://glosbe.com/gapi/translate?from=eng&dest=rus&format=json&phrase=";
+    public static final String BASE_URL="https://glosbe.com/gapi/translate?from=";
 
     public static final class Fonts {
         public static final String Roboto_regular = "fonts/Roboto-Regular.ttf";

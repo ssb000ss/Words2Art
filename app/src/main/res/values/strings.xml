@@ -14,4 +14,6 @@
     <string name="no_translation_available">Нет перевода</string>
     <string name="default_translation_text">Здесь отобразиться перевод</string>
     <string name="error_response">Что то пошло не так, повторите еще раз…</string>
+    <string name="lang_rus">Русский</string>
+    <string name="lang_eng">Английский</string>
 </resources>
