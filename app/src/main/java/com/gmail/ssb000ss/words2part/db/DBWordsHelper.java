@@ -8,11 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by ssb000ss on 13.06.2017.
  */
 
+@SuppressWarnings("ALL")
 public class DBWordsHelper extends SQLiteOpenHelper {
     //назвние бд
     private static final String DATABASE_NAME = "words.db";
     //версия бд
-    public static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 1;
 
     public DBWordsHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

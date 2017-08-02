@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Translation {
 
-	ArrayList<Meaning> meanings = new ArrayList<Meaning>();
+	ArrayList<Meaning> meanings = new ArrayList<>();
 	private Phrase phrase;
 	
 	public Translation(){

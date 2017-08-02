@@ -17,11 +17,11 @@ import com.gmail.ssb000ss.words2part.db.DBWordsHelper;
  * Created by ssb000ss on 27.06.2017.
  */
 
+@SuppressWarnings("ALL")
 public class DAOwordsImpls {
-    Context context;
+    private Context context;
     private DBWords dbWords;
     private WordList list;
-    private DBWordsHelper helper;
     private SQLiteDatabase database;
 
     public SQLiteDatabase getDatabase() {
@@ -34,8 +34,8 @@ public class DAOwordsImpls {
     }
 
     private void init(Context context) {
-        helper=new DBWordsHelper(context);
-        database=helper.getWritableDatabase();
+        DBWordsHelper helper = new DBWordsHelper(context);
+        database= helper.getWritableDatabase();
         dbWords=new DBWords(database);
         list= new WordList(dbWords.getList());
     }

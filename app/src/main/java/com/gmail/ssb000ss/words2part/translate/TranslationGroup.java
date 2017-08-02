@@ -8,13 +8,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("ALL")
 public class TranslationGroup {
 
     private String originalphrase;
     private String originalLanguage;
     private String destinationLanguage;
     private JSONObject jsonObject;
-    private ArrayList<Translation> translations = new ArrayList<Translation>();
+    private ArrayList<Translation> translations = new ArrayList<>();
 
 
     public TranslationGroup(JSONObject jsonObject) {
@@ -55,8 +56,7 @@ public class TranslationGroup {
 
 
     public String getMeaning(int index) {
-        String text = translations.get(index).getMeanings().get(index).text;
-        return text;
+        return translations.get(index).getMeanings().get(index).text;
     }
 
 

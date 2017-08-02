@@ -4,9 +4,10 @@ package com.gmail.ssb000ss.words2part;
  * Created by gENERATION on 11.07.2017.
  */
 
+@SuppressWarnings("ALL")
 public class Constants {
 
-    public static final int MEMORIZATION_LEVEL = 4;
+    public static final int MEMORIZATION_LEVEL = 24;
 
     public static final String KEY_LANGUAGE = "language";
     public static final String KEY_TEXT = "text";

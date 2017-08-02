@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_6"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,7 +13,6 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cv_translate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -67,7 +65,7 @@
                 android:layout_marginTop="20dp"
                 android:background="#00000000"
                 android:gravity="start|center_horizontal"
-                android:hint="@string/et_tranlate_word"
+                android:hint="@string/et_translate_word"
                 android:textColorHint="#C4C4C4"
                 android:textSize="18sp" />
 
@@ -89,7 +87,6 @@
             android:visibility="invisible" />
 
         <LinearLayout
-            android:id="@+id/lt_translation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -122,13 +119,11 @@
             android:visibility="invisible">
 
             <ImageView
-                android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_connection_error" />
 
             <TextView
-                android:id="@+id/tv_connection_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

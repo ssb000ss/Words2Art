@@ -20,6 +20,7 @@ import java.util.List;
  * Created by ssb000ss on 03.07.2017.
  */
 
+@SuppressWarnings("ALL")
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
 
     private Context context;
@@ -51,7 +52,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         setEditMode(isChecked,holder);
     }
 
-    public void setEditMode(boolean b,WordViewHolder holder){
+    private void setEditMode(boolean b, WordViewHolder holder){
         if(b){
             holder.btn_item_remove.setVisibility(View.VISIBLE);
             holder.tv_statistic.setVisibility(View.INVISIBLE);
@@ -67,7 +68,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         return list.size();
     }
 
-    public void deleteItem(int position){
+    private void deleteItem(int position){
         list.remove(position);
         notifyItemRemoved(position);
     }

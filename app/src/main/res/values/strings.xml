@@ -3,15 +3,15 @@
     <string name="title_translate">Переводчик</string>
     <string name="title_dictionary">Словарь</string>
     <string name="title_test">Тест</string>
-    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_main2">Word2Part</string>
     <string name="lbl_dictionary_db_is_empty">В базе данных нету слов…\n Хватит прохлаждаться, Грызи гранит науки!</string>
     <string name="tv_test_error">Для полноценного теста не хватает слов… \nДавай, не халявничай!</string>
     <string name="btn_test_result">Далее</string>
     <string name="test_result_dep">Если долго мучиться, \n что нибудь получиться</string>
     <string name="tv_connection_error">Отсутсвует подключение к сети,\n Раз,два,три - ИНТЕРНЕТ гори!</string>
-    <string name="et_tranlate_word">Введи слово, например: "include"</string>
+    <string name="et_translate_word">Введи слово, например: "include"</string>
     <string name="tv_edit_mode">Редактирование</string>
     <string name="no_translation_available">Нет перевода</string>
     <string name="default_translation_text">Здесь отобразиться перевод</string>
-    <string name="error_response">Что то пошло не так, повторите еще раз...</string>
+    <string name="error_response">Что то пошло не так, повторите еще раз…</string>
 </resources>

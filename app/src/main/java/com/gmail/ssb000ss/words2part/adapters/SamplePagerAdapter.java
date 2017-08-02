@@ -1,7 +1,7 @@
 package com.gmail.ssb000ss.words2part.adapters;
 
-/**
- * Created by ssb000ss on 11.07.2017.
+/*
+  Created by ssb000ss on 11.07.2017.
  */
         import android.content.Context;
         import android.support.v4.view.PagerAdapter;
@@ -11,7 +11,7 @@ package com.gmail.ssb000ss.words2part.adapters;
         import android.view.ViewGroup;
         import android.widget.TextView;
 
-public class SamplePagerAdapter extends PagerAdapter {
+class SamplePagerAdapter extends PagerAdapter {
 
     /**
      * Number of views(pages).

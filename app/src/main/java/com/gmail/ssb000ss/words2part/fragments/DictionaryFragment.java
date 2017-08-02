@@ -1,6 +1,5 @@
 package com.gmail.ssb000ss.words2part.fragments;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,24 +22,27 @@ import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
  * Created by ssb000ss on 11.07.2017.
  */
 
+@SuppressWarnings("ALL")
 public class DictionaryFragment extends Fragment implements WordAdapter.WordAdapterListener {
 
-    public final String TAG = getClass().getName();
+    private final String TAG = getClass().getName();
 
+    public DictionaryFragment() {
+    }
 
-    public DictionaryFragment(Context context,DAOwordsImpls words,Switch sw, TextView tv) {
+    public void setArguments(DAOwordsImpls words, Switch sw, TextView tv) {
         this.words = words;
         this.sw_edit_mode=sw;
         this.tv_toolbar_edit_mode=tv;
     }
 
-    TextView tv_is_empty;
-    TextView tv_toolbar_edit_mode;
-    Switch sw_edit_mode;
-    LinearLayout lt_dictionary_error;
-    RecyclerView recyclerView;
-    WordAdapter adapter;
-    DAOwordsImpls words;
+    private TextView tv_is_empty;
+    private TextView tv_toolbar_edit_mode;
+    private Switch sw_edit_mode;
+    private LinearLayout lt_dictionary_error;
+    private RecyclerView recyclerView;
+    private WordAdapter adapter;
+    private DAOwordsImpls words;
 
 
     @Override

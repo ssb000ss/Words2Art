@@ -6,7 +6,8 @@ import android.provider.BaseColumns;
  * Created by ssb000ss on 13.06.2017.
  */
 
-public class DBWordsContract {
+@SuppressWarnings("ALL")
+class DBWordsContract {
     //этот статичный метод нужен, чтобы был доступ к названиям таблицы, колон
     public static final class DBWordEntry implements BaseColumns {
         public static final String TABLE_NAME="dictionary";

@@ -22,7 +22,6 @@ import com.gmail.ssb000ss.utils.QuestionManager;
 import com.gmail.ssb000ss.words2part.MainActivity;
 import com.gmail.ssb000ss.words2part.R;
 import com.gmail.ssb000ss.words2part.Constants;
-import com.gmail.ssb000ss.words2part.dao.DAOwords;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 
 import java.util.List;
@@ -31,9 +30,10 @@ import java.util.List;
  * Created by ssb000ss on 11.07.2017.
  */
 
+@SuppressWarnings("ALL")
 public class TestFragment extends Fragment implements View.OnClickListener {
-    
-    public static final String TAG="TestFragment";
+
+    private static final String TAG = "TestFragment";
 
     private Typeface tf_roboto_regular;
     private Typeface tf_question;
@@ -51,24 +51,24 @@ public class TestFragment extends Fragment implements View.OnClickListener {
 
     private TextView[] answers = new TextView[4];
 
-    int count = 1;
-    int correctAnswer = 0;
-    int size = 0;
+    private int count = 1;
+    private int correctAnswer = 0;
+    private int size = 0;
 
-    QuestionManager questionManager;
-    List<Question> questions;
-    Question temp = new Question();
-    WordList list;
-    DAOwordsImpls words;
+    private QuestionManager questionManager;
+    private List<Question> questions;
+    private Question temp = new Question();
+    private WordList list;
+    private DAOwordsImpls words;
 
-    Vibrator vibr;
+    private Vibrator vibr;
 
-    MainActivity context;
-    Animation shakeanimation;
-    Animation scaleanimation;
+    private MainActivity context;
+    private Animation shakeanimation;
+    private Animation scaleanimation;
 
 
-    TestFragment.TestListener TestListener;
+    private TestFragment.TestListener TestListener;
 
     public interface TestListener {
         void OnClickNextButton();
@@ -82,18 +82,14 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         Log.d(TAG, "onAttach");
     }
 
-
-    public TestFragment(MainActivity context, DAOwordsImpls words) {
-        this.context = context;
-        this.words=words;
+    public TestFragment() {
     }
 
-    public TestFragment(DAOwordsImpls words, MainActivity context) {
+    public void setArguments(MainActivity context, DAOwordsImpls words) {
+        this.context = context;
         this.words = words;
-        this.context = context;
-        Log.d(TAG, "TestFragment: Constructor ");
-
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -183,7 +179,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         answers[3] = (TextView) view.findViewById(R.id.tv_answer_4);
     }
 
-    public void setQuestionItems(Question q) {
+    private void setQuestionItems(Question q) {
         temp = q;
         tv_question.setText(temp.getCorrectWord().getWord());
         for (int i = 0; i < 4; i++) {
@@ -194,8 +190,8 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        words=null;
-        list=null;
+        words = null;
+        list = null;
         System.gc();
         Log.d(TAG, "onDestroyView: ");
     }

@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -46,19 +44,21 @@ import java.util.TimerTask;
  * Created by ssb000ss on 11.07.2017.
  */
 
+@SuppressWarnings("ALL")
 public class TranslateFragment extends Fragment implements View.OnClickListener,EditText.OnFocusChangeListener {
 
     private DAOwordsImpls impls;
 
+    public TranslateFragment() {
+    }
 
-    public TranslateFragment(DAOwordsImpls impls) {
+    public void setArguments(DAOwordsImpls impls) {
         this.impls = impls;
     }
 
     private EditText word;
     private TextView translate;
     private ImageButton btn_add_word, btn_clear_text, btn_add_success;
-    private Animation anim_word_add;
     private ProgressBar progressBar;
     private LinearLayout lt_error_connection;
     private RecyclerView rv_translation;
@@ -74,7 +74,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
         if (!isOnline()) {
             lt_error_connection.setVisibility(View.VISIBLE);
         }else lt_error_connection.setVisibility(View.GONE);
-        anim_word_add = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
+        Animation anim_word_add = AnimationUtils.loadAnimation(getContext(), R.anim.alpha);
 
         TextWatcher watcher = getTextWatcher();
         word.addTextChangedListener(watcher);
@@ -207,7 +207,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
         return Constants.BASE_URL + phrase.toLowerCase();
     }
 
-    public boolean isOnline() {
+    private boolean isOnline() {
         ConnectivityManager cm =
                 (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

@@ -16,11 +16,12 @@ import java.util.List;
  */
 
 //класс создан для работы с бд в андроиде
+@SuppressWarnings("ALL")
 public class DBWords {
     //бд
     private SQLiteDatabase mDb;
     //объект курсор который хранить в себе все данные с бд
-    Cursor cursor;
+    private Cursor cursor;
 
     public DBWords(SQLiteDatabase mDb) {
         this.mDb = mDb;
@@ -70,7 +71,7 @@ public class DBWords {
         return mDb.delete(DBWordsContract.DBWordEntry.TABLE_NAME, DBWordsContract.DBWordEntry._ID + "=" + id, null) > 0;
     }
 
-    public Cursor getAll() {
+    private Cursor getAll() {
         return mDb.query(DBWordsContract.DBWordEntry.TABLE_NAME
                 , null
                 , null

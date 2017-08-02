@@ -11,11 +11,11 @@ import java.util.List;
  * Created by gENERATION on 13.06.2017.
  */
 
-public class TestUtils {
+@SuppressWarnings("ALL")
+class TestUtils {
     //TODO удалить после того как протестирую функционал БД
     public static void insertTestWord(SQLiteDatabase sqLiteDatabase) {
         if (sqLiteDatabase == null) {
-            return;
         } else {
             List<ContentValues> list = new ArrayList<>();
             ContentValues cv = new ContentValues();

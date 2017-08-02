@@ -3,7 +3,7 @@ package com.gmail.ssb000ss.words2part.translate;
 public class Phrase {
 
 	String text;
-	String language;
+	private String language;
 	
 	public Phrase(String text, String language){
 		this.text = text;

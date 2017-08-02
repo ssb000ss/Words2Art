@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/back_6"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -18,7 +17,6 @@
         app:layout_collapseParallaxMultiplier="0.0">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cv_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -47,7 +45,6 @@
 
             <android.support.v7.widget.CardView
 
-                android:id="@+id/cv_test_item_1"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
@@ -66,7 +63,6 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_test_item_2"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
@@ -85,7 +81,6 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_test_item_3"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
@@ -104,7 +99,6 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cv_test_item_4"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_columnWeight="1"
@@ -185,7 +179,6 @@
             tools:text="10/15" />
 
         <TextView
-            android:id="@+id/tv_test_dep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
