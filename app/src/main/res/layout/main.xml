@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.gmail.ssb000ss.words2part.MainActivity">
-<include android:id="@+id/test_toolbar"
-    layout="@layout/toolbar"/>
+
+    <include
+        android:id="@+id/test_toolbar"
+        layout="@layout/toolbar" />
 
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-    </FrameLayout>
+        android:layout_weight="1" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

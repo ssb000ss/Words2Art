@@ -42,8 +42,7 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
 
         setContentView(R.layout.main);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.test_toolbar);
+        
         tv_toolbar=(TextView)findViewById(R.id.tv_toolbar);
         TextView tv_toolbar_edit_mode = (TextView) findViewById(R.id.tv_toolbar_edit_mode);
         Switch sw_toolbar = (Switch) findViewById(R.id.sw_toolbar_edit_mode);
@@ -51,7 +50,7 @@ public class MainActivity extends FragmentActivity implements TestFragment.TestL
         words = new DAOwordsImpls(this);
 
         translateFragment = new TranslateFragment();
-        translateFragment.setArguments(words);
+        translateFragment.setArguments(words,this);
         dictionaryFragment = new DictionaryFragment();
         dictionaryFragment.setArguments(words, sw_toolbar, tv_toolbar_edit_mode);
 

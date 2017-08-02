@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.gmail.ssb000ss.words2part.MainActivity;
 import com.gmail.ssb000ss.words2part.R;
 import com.gmail.ssb000ss.words2part.Constants;
 import com.gmail.ssb000ss.words2part.adapters.TranslationAdapter;
@@ -47,15 +49,19 @@ import java.util.TimerTask;
 @SuppressWarnings("ALL")
 public class TranslateFragment extends Fragment implements View.OnClickListener,EditText.OnFocusChangeListener {
 
-    private DAOwordsImpls impls;
+
 
     public TranslateFragment() {
     }
 
-    public void setArguments(DAOwordsImpls impls) {
+    public void setArguments(DAOwordsImpls impls,MainActivity context) {
         this.impls = impls;
+        this.context= context;
+
     }
 
+    private MainActivity context;
+    private DAOwordsImpls impls;
     private EditText word;
     private TextView translate;
     private ImageButton btn_add_word, btn_clear_text, btn_add_success;
@@ -163,6 +169,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
         btn_add_success = (ImageButton) view.findViewById(R.id.btn_translate_add_success);
 
         translate.setOnClickListener(this);
+        ft_content_layout.setOnClickListener(this);
         btn_clear_text.setOnClickListener(this);
         btn_add_word.setOnClickListener(this);
         progressBar = (ProgressBar) view.findViewById(R.id.pb_translation);
@@ -187,6 +194,9 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
             case R.id.tv_translate_translation:
                 word.clearFocus();
                 break;
+            case  R.id.ft_translate_content:
+                word.clearFocus();
+                context.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }
     }
 

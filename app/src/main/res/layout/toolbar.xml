@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:id="@+id/test_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,14 +22,14 @@
             android:visibility="invisible" />
 
         <TextView
-
             android:id="@+id/tv_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/color_title_toolbar"
             android:textSize="20sp"
-            tool:text="Dictionary" />
+            tool:text="Dictionary"
+            tool:visibility="invisible" />
 
         <Switch
             android:id="@+id/sw_toolbar_edit_mode"
@@ -37,5 +38,37 @@
             android:layout_gravity="end"
             android:layout_marginRight="8dp"
             android:visibility="gone" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_translation_lang_from"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textColor="@color/color_title_toolbar"
+                android:text="Русский" />
+
+            <ImageButton
+                android:id="@+id/btn_translation_swap"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="#00"
+                android:src="@drawable/ic_swap"/>
+
+            <TextView
+                android:id="@+id/tv_translation_lang_dest"
+                android:layout_width="0dp"
+                android:text="Английский"
+                android:textColor="@color/color_title_toolbar"
+                android:gravity="center"
+                android:layout_height="match_parent"
+                android:layout_weight="3" />
+        </LinearLayout>
     </FrameLayout>
 </android.support.v7.widget.Toolbar>
