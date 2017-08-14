@@ -40,7 +40,6 @@ public class DAOwordsImpls {
         list= new WordList(dbWords.getList());
     }
 
-
     public boolean addWord(String word,String translation) {
         long id=dbWords.addWord(word,translation);
         if(id>0){
@@ -50,7 +49,6 @@ public class DAOwordsImpls {
             return list.addWord(new Word(id,word,translation));
         }else return false;
     }
-
 
     public boolean updateWord(long id, String newWord, String newTranslation) {
         if (dbWords.updateWord(id,newWord,newTranslation)){
@@ -62,7 +60,6 @@ public class DAOwordsImpls {
             return true;
         }else return false;
     }
-
 
     public boolean deleteWord(long id) {
         if(dbWords.deleteWord(id)){

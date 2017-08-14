@@ -3,7 +3,7 @@
     <string name="title_translate">Переводчик</string>
     <string name="title_dictionary">Словарь</string>
     <string name="title_test">Тест</string>
-    <string name="title_activity_main2">Word2Part</string>
+    <string name="title_activity_main2" translatable="false">Word2Part</string>
     <string name="lbl_dictionary_db_is_empty">В базе данных нету слов…\n Хватит прохлаждаться, Грызи гранит науки!</string>
     <string name="tv_test_error">Для полноценного теста не хватает слов… \nДавай, не халявничай!</string>
     <string name="btn_test_result">Далее</string>
@@ -14,6 +14,21 @@
     <string name="no_translation_available">Нет перевода</string>
     <string name="default_translation_text">Здесь отобразиться перевод</string>
     <string name="error_response">Что то пошло не так, повторите еще раз…</string>
-    <string name="lang_rus">Русский</string>
-    <string name="lang_eng">Английский</string>
+
+
+    <!--languages-->
+    <string name="en">английский</string>
+    <string name="es">испанский</string>
+    <string name="it">итальянский</string>
+    <string name="kk">казахский</string>
+    <string name="zh">китайский</string>
+    <string name="ko">корейский</string>
+    <string name="la">латинский</string>
+    <string name="de">немецкий</string>
+    <string name="pl">польский</string>
+    <string name="pt">португальский</string>
+    <string name="ru">русский</string>
+    <string name="tr">турецкий</string>
+    <string name="uz">узбекский</string>
+    <string name="uk">украинский</string>
 </resources>

@@ -28,8 +28,7 @@
             android:gravity="center"
             android:textColor="@color/color_title_toolbar"
             android:textSize="20sp"
-            tool:text="Dictionary"
-            />
+            tool:text="Dictionary" />
 
         <Switch
             android:id="@+id/sw_toolbar_edit_mode"
@@ -42,36 +41,44 @@
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <TextView
-                android:visibility="visible"
-                android:id="@+id/tv_translation_lang_from"
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/sp_translation_lang_from"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
+                tools:paddingStart="16dp"
                 android:gravity="center"
                 android:textColor="@color/color_title_toolbar"
-                android:text="@string/lang_eng" />
+                android:textSize="14sp"
+                android:visibility="visible"
+                tool:text="Английский"
+                tools:ms_background_color="@color/colorPrimary"
+                 />
 
             <ImageButton
-                android:visibility="visible"
                 android:id="@+id/btn_translation_swap"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@color/colorPrimary"
-                android:src="@drawable/ic_swap"/>
+                android:src="@drawable/ic_swap"
+           />
 
-            <TextView
-                android:visibility="visible"
-                android:id="@+id/tv_translation_lang_dest"
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/sp_translation_lang_dest"
                 android:layout_width="0dp"
-                android:text="@string/lang_rus"
-                android:textColor="@color/color_title_toolbar"
-                android:gravity="center"
                 android:layout_height="match_parent"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:background="@null"
+                android:gravity="center"
+                android:textColor="@color/color_title_toolbar"
+                android:textSize="14sp"
+                android:visibility="visible"
+                tool:text="@string/lang_rus"
+                tools:ms_background_color="@color/colorPrimary"
+                 />
         </LinearLayout>
     </FrameLayout>
 </android.support.v7.widget.Toolbar>

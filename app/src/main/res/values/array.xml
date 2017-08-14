@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<array name="lang">
+    <item>@string/en</item>
+    <item>@string/es</item>
+    <item>@string/it</item>
+    <item>@string/kk</item>
+    <item>@string/zh</item>
+    <item>@string/zh</item>
+    <item>@string/ko</item>
+    <item>@string/la</item>
+    <item>@string/de</item>
+    <item>@string/pl</item>
+    <item>@string/pt</item>
+    <item>@string/ru</item>
+    <item>@string/tr</item>
+    <item>@string/uz</item>
+    <item>@string/uk</item>
+
+</array>
+<array name="lang_code">
+    <item>en</item>
+    <item>es</item>
+    <item>it</item>
+    <item>kk</item>
+    <item>zh</item>
+    <item>zh</item>
+    <item>ko</item>
+    <item>la</item>
+    <item>de</item>
+    <item>pl</item>
+    <item>pt</item>
+    <item>ru</item>
+    <item>tr</item>
+    <item>uz</item>
+    <item>uk</item>
+</array>
+</resources>

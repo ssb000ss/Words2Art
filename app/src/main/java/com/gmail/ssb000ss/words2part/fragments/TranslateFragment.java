@@ -15,12 +15,15 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.gmail.ssb000ss.words2part.LanguageUtils;
 import com.gmail.ssb000ss.words2part.MainActivity;
 import com.gmail.ssb000ss.words2part.R;
 import com.gmail.ssb000ss.words2part.Constants;
@@ -35,11 +39,14 @@ import com.gmail.ssb000ss.words2part.adapters.TranslationAdapter;
 import com.gmail.ssb000ss.words2part.dao.DAOwordsImpls;
 import com.gmail.ssb000ss.words2part.translate.Translation;
 import com.gmail.ssb000ss.words2part.translate.TranslationGroup;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,11 +61,11 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
     public TranslateFragment() {
     }
 
-    public void setArguments(DAOwordsImpls impls, MainActivity context, ImageButton swap, TextView from, TextView dest) {
+    public void setArguments(DAOwordsImpls impls, MainActivity context, ImageButton swap, MaterialSpinner from, MaterialSpinner dest) {
         this.impls = impls;
         this.context = context;
-        this.tv_lang_from = from;
-        this.tv_lang_dest = dest;
+        this.sp_lang_from = from;
+        this.sp_lang_dest = dest;
         this.btn_swap_lang = swap;
 
     }
@@ -73,16 +80,19 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
     private RecyclerView rv_translation;
     private TranslationAdapter adapter;
     private FrameLayout ft_content_layout;
-    private TextView tv_lang_from;
-    private TextView tv_lang_dest;
     private ImageButton btn_swap_lang;
+    private MaterialSpinner sp_lang_from,sp_lang_dest;
     private boolean type_lang = true;
+
+    private String[]languages;
+    private Map <String,String >lang_map;
+
 
     @Override
     public void onStop() {
         super.onDestroy();
-        tv_lang_dest.setVisibility(View.INVISIBLE);
-        tv_lang_from.setVisibility(View.INVISIBLE);
+        sp_lang_dest.setVisibility(View.INVISIBLE);
+        sp_lang_from.setVisibility(View.INVISIBLE);
         btn_swap_lang.setVisibility(View.GONE);
     }
 
@@ -90,8 +100,33 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_translate, container, false);
         initViews(view);
-        tv_lang_dest.setVisibility(View.VISIBLE);
-        tv_lang_from.setVisibility(View.VISIBLE);
+        String []code=getContext().getResources().getStringArray(R.array.lang_code);
+
+
+        languages= getContext().getResources().getStringArray(R.array.lang);
+        lang_map=LanguageUtils.getMap(context);
+
+        sp_lang_dest.setItems(languages);
+        sp_lang_from.setItems(languages);
+
+        sp_lang_dest.setSelectedIndex(11);
+
+
+        sp_lang_dest.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+            }
+        });
+
+        sp_lang_from.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+            }
+        });
+
+
+        sp_lang_dest.setVisibility(View.VISIBLE);
+        sp_lang_from.setVisibility(View.VISIBLE);
         btn_swap_lang.setVisibility(View.VISIBLE);
         if (!isOnline()) {
             lt_error_connection.setVisibility(View.VISIBLE);
@@ -101,6 +136,14 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
         word.addTextChangedListener(watcher);
 
         return view;
+    }
+
+    private List<String> getList(String[] languages) {
+        List<String> str=new ArrayList<>();
+        for (int i = 0; i <languages.length ; i++) {
+            str.add(languages[i]);
+        }
+        return str;
     }
 
     @NonNull
@@ -141,18 +184,19 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
     }
 
     private void getTranslate(boolean type) {
-        String from,dest;
-        if(type){
-            from=Constants.LANG_EN;
-            dest=Constants.LANG_RU;
-        }else {
-            from=Constants.LANG_RU;
-            dest=Constants.LANG_EN;
+        String from, dest;
+        if (type) {
+
+            from = lang_map.get(languages[sp_lang_from.getSelectedIndex()]);
+            dest = lang_map.get(languages[sp_lang_dest.getSelectedIndex()]);
+        } else {
+            from = lang_map.get(languages[sp_lang_dest.getSelectedIndex()]);
+            dest = lang_map.get(languages[sp_lang_from.getSelectedIndex()]);
         }
         RequestQueue queue = Volley.newRequestQueue(getContext());
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
-                composeUrl(word.getText().toString(),from,dest),
+                composeUrl(word.getText().toString(), from, dest),
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -172,7 +216,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
                     public void onErrorResponse(VolleyError error) {
                         //clearTexts();
                         translate.setText(error.toString());
-                      //  translate.setText(getString(R.string.error_response));
+                        //  translate.setText(getString(R.string.error_response));
                     }
                 });
         queue.add(request);
@@ -204,11 +248,11 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_translate_add_word:
-                String w,t;
-                if(type_lang){
+                String w, t;
+                if (type_lang) {
                     w = word.getText().toString().toUpperCase();
                     t = translate.getText().toString();
-                }else {
+                } else {
                     t = word.getText().toString();
                     w = translate.getText().toString().toUpperCase();
                 }
@@ -230,15 +274,16 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
                 word.clearFocus();
                 context.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             case R.id.btn_translation_swap:
-                if(type_lang){
-                    type_lang=false;
-                    tv_lang_from.setText(getString(R.string.lang_rus));
-                    tv_lang_dest.setText(getString(R.string.lang_eng));
-                }
-                else{
-                    tv_lang_dest.setText(getString(R.string.lang_rus));
-                    tv_lang_from.setText(getString(R.string.lang_eng));
-                    type_lang=true;
+                int dest_pos=sp_lang_dest.getSelectedIndex();
+                int from_pos=sp_lang_from.getSelectedIndex();
+                if (type_lang) {
+                    type_lang = false;
+                    sp_lang_dest.setSelectedIndex(from_pos);
+                    sp_lang_from.setSelectedIndex(dest_pos);
+                } else {
+                    sp_lang_dest.setSelectedIndex(from_pos);
+                    sp_lang_from.setSelectedIndex(dest_pos);
+                    type_lang = true;
                 }
         }
     }
@@ -256,13 +301,13 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
         btn_clear_text.setVisibility(visibility);
     }
 
-    private String composeUrl(String phrase,String from,String dest) {
-        String s=Constants.BASE_URL;
-        s=s+from;
-        s=s+"&dest=";
-        s=s+dest;
-        s=s+"&format=json&phrase=";
-        s=s+phrase.toLowerCase();
+    private String composeUrl(String phrase, String from, String dest) {
+        String s = Constants.BASE_URL;
+        s = s + from;
+        s = s + "&dest=";
+        s = s + dest;
+        s = s + "&format=json&phrase=";
+        s = s + phrase.toLowerCase();
         return s;
     }
 
@@ -285,4 +330,6 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
                 break;
         }
     }
+
+
 }

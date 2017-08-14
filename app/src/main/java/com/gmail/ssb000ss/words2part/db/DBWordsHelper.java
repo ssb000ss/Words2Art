@@ -25,7 +25,7 @@ public class DBWordsHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " + DBWordsContract.DBWordEntry.TABLE_NAME + " (" +
                 DBWordsContract.DBWordEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                DBWordsContract.DBWordEntry.COLUMN_WORD + " TEXT NOT NULL UNIQUE, " +
+                DBWordsContract.DBWordEntry.COLUMN_WORD + " TEXT NOT NULL, " +
                 DBWordsContract.DBWordEntry.COLUMN_TRANSLATION + "," +
                 DBWordsContract.DBWordEntry.COLUMN_STATISTIC +" INTEGER NOT NULL); ";
         db.execSQL(SQL_CREATE_WAITLIST_TABLE);

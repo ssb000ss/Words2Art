@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Words2PArt</string>
+    <string name="btn_test_result">Next</string>
+    <string name="de">German</string>
+    <string name="en">English</string>
+    <string name="it">Italian</string>
+    <string name="kk">Kazakh</string>
+    <string name="ko">Korean</string>
+    <string name="la">Latin</string>
+    <string name="pl">Polish</string>
+    <string name="pt">Portuguese</string>
+    <string name="ru">Russian</string>
+    <string name="tr">Turkish</string>
+    <string name="uk">Ukrainian</string>
+    <string name="uz">Uzbek</string>
+    <string name="zh">Chinese</string>
+    <string name="es">Spanish</string>
+    <string name="lbl_dictionary_db_is_empty">The database is empty...</string>
+
+</resources>
